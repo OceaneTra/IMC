@@ -21,7 +21,7 @@
  }
 
  .footer {
-     background: #343a40;
+     background: #5d92db;
      color: white;
      padding: 20px 0;
      text-align: center;
@@ -36,4 +36,36 @@
     margin: 1rem;
 }
 
+.footer {
+    background-color: #5d92db;
+    color: white;
+    padding: 40px 0;
+}
 
+.footer a {
+    color: #f8f9fa;
+}
+
+.footer .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.footer .description {
+    font-size: 0.9rem;
+}
+
+.footer .social i {
+    font-size: 1.5rem;
+    margin-right: 15px;
+}
+
+.footer .social i:hover {
+    color: #007bff;
+}
+
+.footer .copyright {
+    border-top: 1px solid #495057;
+    padding-top: 20px;
+    margin-top: 20px;
+}
