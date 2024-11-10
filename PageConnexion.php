@@ -39,8 +39,7 @@
                 <a href="#" class="login-button">Se Connecter</a>
 
                 <div class="forgot-password">
-                    <a href="#">Vous avez oublié votre mot de passe ? </a>
-                    <a href="#">Vous avez oublié votre mot de passe ? </a>
+                <a href="#">Vous avez oublié votre mot de passe ? </a>
                 </div>
 
                 <div class="remember-device">
