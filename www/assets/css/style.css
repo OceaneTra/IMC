@@ -1,0 +1,32 @@
+ .hero {
+     background: linear-gradient(to right, #ff7e5f, #feb47b);
+     color: white;
+     padding: 50px 0;
+     text-align: center;
+ }
+
+ .pricing {
+     background: #f8f9fa;
+     padding: 50px 0;
+ }
+
+ .pricing .card {
+     border: none;
+     border-radius: 10px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ }
+
+ .blog {
+     padding: 50px 0;
+ }
+
+ .footer {
+     background: #343a40;
+     color: white;
+     padding: 20px 0;
+     text-align: center;
+ }
+
+.text-primary{
+    color: #5d92db;
+}
