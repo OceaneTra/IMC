@@ -1,3 +1,6 @@
+<?php include("C:/wamp64/www/Ivoire_Medical_Center/IMC/config/db_connect.php"); ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +39,12 @@
                 <i class="fa-regular fa-hospital fa-2x"></i>
             </div>
             <div class="number">
-                <h1>4,125</h1>
+                <?php
+                $requete = $bdd->prepare("SELECT COUNT(*) FROM centre_medical");
+                $requete->execute();
+                $nb_cm = $requete->fetchColumn();
+                ?>
+                <h1><?php echo $nb_cm; ?></h1>
             </div>
             <div class="subtitles">
                 <h3>Nombre de clinique ajoutées</h3>
@@ -57,7 +65,12 @@
                 <i class="fa-solid fa-users fa-2x"></i>
             </div>
             <div class="number">
-                <h1>3,500</h1>
+                <?php
+                $requete = $bdd->prepare("SELECT COUNT(*) FROM forfaits WHERE type_forfait = 'plan basic'  ");
+                $requete->execute();
+                $nb_plan_basic = $requete->fetchColumn();
+                ?>
+                <h1> <?php echo $nb_plan_basic; ?> </h1>
             </div>
             <div class="subtitles">
                 <h3>Cliniques bénéficiant du forfait basic plan</h3>
@@ -71,7 +84,12 @@
                 <i class="fa-solid fa-business-time fa-2x"></i>
             </div>
             <div class="number">
-                <h1>1,254</h1>
+                <?php
+                $requete = $bdd->prepare("SELECT COUNT(*) FROM forfaits WHERE type_forfait = 'plan business'  ");
+                $requete->execute();
+                $nb_plan_business = $requete->fetchColumn();
+                ?>
+                <h1><?php echo $nb_plan_business; ?></h1>
             </div>
             <div class="subtitles">
                 <h3>Cliniques bénéficiant du forfait business plan</h3>
@@ -85,7 +103,12 @@
                 <i class="fa-solid fa-user-tie fa-2x"></i>
             </div>
             <div class="number">
-                <h1>7,241</h1>
+                <?php
+                $requete = $bdd->prepare("SELECT COUNT(*) FROM forfaits WHERE type_forfait = 'plan entreprise'  ");
+                $requete->execute();
+                $nb_plan_entreprise = $requete->fetchColumn();
+                ?>
+                <h1><?php echo $nb_plan_entreprise; ?></h1>
             </div>
             <div class="subtitles">
                 <h3>Cliniques bénéficiant du forfait entreprise plan</h3>
@@ -114,7 +137,7 @@
             </div>
         </div>
         <div class="graph" style="text-align:center;">
-            <canvas id="myChart" style="height:100%; width:100%;"></canvas>
+            <div id="myChart"></div>
         </div>
     </div>
 
@@ -123,8 +146,8 @@
 
 
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.49.1/apexcharts.min.js" integrity="sha512-qiVW4rNFHFQm0jHli5vkdEwP4GPSzCSp85J7JRHdgzuuaTg31tTMC8+AHdEC5cmyMFDByX639todnt6cxEc1lQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/Ivoire_Medical_Center/IMC/admin_imc/assets/js/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>
