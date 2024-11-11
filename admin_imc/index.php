@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Document</title>
-    <link rel="stylesheet" href="../assets/css/index.css">
+    <link rel="stylesheet" href="/Ivoire_Medical_Center/IMC/admin_imc/assets/css/index_style.css">
 </head>
 
 <body>
@@ -14,7 +14,7 @@
     <nav id="navbar">
         <div class="logo-container">
             <div class="logo">
-                <img src="../assets/images/logoImc.jpg" width="30%" height="100%" alt="">
+                <img src="/Ivoire_Medical_Center/IMC/admin_imc/assets/images/logoImc.jpg" width="30%" height="100%" alt="">
                 <div class="text">
                     <h3>Ivoire Medical</h3>
                     <h3 style="text-align:center;color:#405ae7; font-weight:bold;">Center</h3>

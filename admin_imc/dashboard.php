@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <title>Document</title>
-    <link rel="stylesheet" href="../assets/css/dashboard_style.css">
+    <link rel="stylesheet" href="/Ivoire_Medical_Center/IMC/admin_imc/assets/css/dashboard_styles.css">
 </head>
 
 <body>
@@ -114,15 +114,17 @@
             </div>
         </div>
         <div class="graph" style="text-align:center;">
-            Espace reservé reservé pour le graphique
+            <canvas id="myChart" style="height:100%; width:100%;"></canvas>
         </div>
     </div>
-    </div>
 
 
 
 
 
+
+    <script src="/Ivoire_Medical_Center/IMC/admin_imc/assets/js/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>

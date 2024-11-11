@@ -47,6 +47,7 @@ form input, form textarea {
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 10px;
+    outline: none;
     font-size: 14px;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
@@ -158,5 +159,43 @@ table tr td form{
     background: none;
     border: none;
     width: auto;
+
+}
+
+
+
+
+table tbody td a {
+    text-decoration: none;
+    font-weight: 700;
+    
+
+}
+
+table tbody td a:nth-of-type(1) {
+    color: #ffffff;
+    background-color: #405ae7;
+    border: 2px solid #eee;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+table tbody td a:nth-of-type(1):hover {
+    background: #2c3bb3;
+    transition: background 0.3s;
+
+}
+
+table tbody td a:nth-of-type(2) {
+    color: #405ae7;
+    background-color: #ffff;
+    border: 2px solid #405ae7;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+table tbody td a:nth-of-type(2):hover {
+    background: #eeee;
+    transition: background 0.3s;
 
 }

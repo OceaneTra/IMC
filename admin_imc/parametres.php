@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../assets/css/param_styles.css">
+    <link rel="stylesheet" href="/Ivoire_Medical_Center/IMC/admin_imc/assets/css/param_styles.css">
 </head>
 
 <body>
@@ -20,7 +20,7 @@
 
         <div class="top">
             <div class="profil">
-                <img src="../assets/images/img_profil1.png" alt="">
+                <img src="/Ivoire_Medical_Center/IMC/admin_imc/assets/images/img_profil1.png" alt="">
                 <div class="submit-container">
                     <input type="submit" name="changer" value="Changer la photo">
                     <input type="submit" name="supprimer" value="Supprimer">
@@ -34,7 +34,7 @@
                         Nous utilisons des technologies avancées de sécurité pour assurer la confidentialité et l'intégrité de vos données. 
                         Naviguez donc en toute sérénité, votre confidentialités et notre priorité.</p>
                 </div>
-                <img src="../assets/images/imgLock.png" alt="">
+                <img src="/Ivoire_Medical_Center/IMC/admin_imc/assets/images/imgLock.png" alt="">
             </div>
         </div>
 
