@@ -54,7 +54,7 @@
         <div class="card">
             <div class="title">
                 <h2>Chiffre d'affaire</h2>
-                <i class="fa-solid fa-money-bill-wave"></i>
+                <i class="fa-solid fa-money-bill-wave fa-2x"></i>
             </div>
             <div class="number">
                 <?php /*
