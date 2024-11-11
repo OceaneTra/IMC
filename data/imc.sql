@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 04 nov. 2024 à 23:31
--- Version du serveur : 8.2.0
--- Version de PHP : 8.2.13
+-- Généré le : lun. 11 nov. 2024 à 23:29
+-- Version du serveur : 8.0.31
+-- Version de PHP : 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -131,6 +131,23 @@ CREATE TABLE IF NOT EXISTS `facture` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `infirmier`
+--
+
+DROP TABLE IF EXISTS `infirmier`;
+CREATE TABLE IF NOT EXISTS `infirmier` (
+  `id_infirmier` int NOT NULL AUTO_INCREMENT,
+  `nom_infirmier` varchar(100) NOT NULL,
+  `prenom_infirmier` varchar(100) NOT NULL,
+  `adresse_infirmier` varchar(255) DEFAULT NULL,
+  `tel_infirmier` varchar(20) DEFAULT NULL,
+  `mot_de_passe` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_infirmier`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `medecin`
 --
 
@@ -185,22 +202,6 @@ CREATE TABLE IF NOT EXISTS `patient` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `personnels`
---
-
-DROP TABLE IF EXISTS `personnels`;
-CREATE TABLE IF NOT EXISTS `personnels` (
-  `id_personnel` int NOT NULL AUTO_INCREMENT,
-  `type_personnel` varchar(20) NOT NULL,
-  `nom` varchar(20) NOT NULL,
-  `prenom` varchar(30) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  PRIMARY KEY (`id_personnel`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `rdv`
 --
 
@@ -213,6 +214,24 @@ CREATE TABLE IF NOT EXISTS `rdv` (
   PRIMARY KEY (`id_rdv`),
   UNIQUE KEY `id_patient` (`id_patient`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `secretaire`
+--
+
+DROP TABLE IF EXISTS `secretaire`;
+CREATE TABLE IF NOT EXISTS `secretaire` (
+  `id_secretaire` int NOT NULL AUTO_INCREMENT,
+  `nom_secretaire` varchar(100) NOT NULL,
+  `prenom_secretaire` varchar(100) NOT NULL,
+  `adresse_secretaire` varchar(255) DEFAULT NULL,
+  `tel_secretaire` varchar(20) DEFAULT NULL,
+  `email_secretaire` varchar(100) DEFAULT NULL,
+  `mot_de_passe` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_secretaire`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
