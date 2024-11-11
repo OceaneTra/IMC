@@ -4,12 +4,11 @@
 
 .cards-container-principal {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
-    margin: 20px auto;
     margin-bottom: 30px;
+    margin: 20px;
     justify-content: center;
-    max-width: 800px;
 }
 
 .cards-container-secondary {
@@ -91,4 +90,13 @@
 .legend-business,
 .legend-entreprise {
     background: #405ae7;
+}
+
+
+@media (max-width: 1068px) {    
+    .cards-container-principal,
+    .cards-container-secondary {
+        display: flex;
+        flex-direction: column;
+    }
 }

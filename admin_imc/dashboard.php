@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <title>Document</title>
-    <link rel="stylesheet" href="/Ivoire_Medical_Center/IMC/admin_imc/assets/css/dashboard_styles.css">
+    <link rel="stylesheet" href="/Ivoire_Medical_Center/IMC/admin_imc/assets/css/style_dashboard.css">
 </head>
 
 <body>
@@ -24,7 +24,7 @@
                 <i class="fa-solid fa-user-group fa-2x"></i>
             </div>
             <div class="number">
-                <h1>10,525</h1>
+                <h1>0</h1>
             </div>
             <div class="subtitles">
                 <h3>Nombre de visite par jours</h3>
@@ -49,7 +49,24 @@
             <div class="subtitles">
                 <h3>Nombre de clinique ajoutées</h3>
             </div>
+        </div>
 
+        <div class="card">
+            <div class="title">
+                <h2>Chiffre d'affaire</h2>
+                <i class="fa-solid fa-money-bill-wave"></i>
+            </div>
+            <div class="number">
+                <?php /*
+                $requete = $bdd->prepare("SELECT COUNT(*) FROM centre_medical");
+                $requete->execute();
+                $nb_cm = $requete->fetchColumn(); */
+                ?>
+                <h1>0 FCFA</h1>
+            </div>
+            <div class="subtitles">
+                <h3>Chiffre d'affaire actuel</h3>
+            </div>
         </div>
 
 
@@ -121,20 +138,6 @@
     <div class="charts-container">
         <div class="chart-header">
             <h2>Statistiques des forfaits</h2>
-            <div class="chart-legend">
-                <div class="legend-item">
-                    <div class="legend-basic"></div>
-                    <span>Basic plan</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-business"></div>
-                    <span>Business plan</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-entreprise"></div>
-                    <span>Entreprise plan</span>
-                </div>
-            </div>
         </div>
         <div class="graph" style="text-align:center;">
             <div id="myChart"></div>

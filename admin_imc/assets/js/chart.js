@@ -33,13 +33,22 @@ var options = {
         colors: ['transparent']
     },
     xaxis: {
+        title: {
+            text: 'Mois',
+            style:{
+                fontSize: '18px',
+            }
+        },
         categories: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
             'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
     },
     yaxis: {
         title: {
-            text: 'Revenus (fcfa)'
-        }
+            text: 'Revenus (fcfa)',
+            style: {
+                fontSize: '18px'
+            }
+        },
     },
     fill: {
         opacity: 1
@@ -60,8 +69,8 @@ var options = {
     },
     colors: ['#008FFB', '#00E396', '#FEB019'],
     legend: {
-        position: 'bottom',
-        horizontalAlign: 'center'
+        position: 'top',
+        horizontalAlign: 'right'
     }
 };
 
