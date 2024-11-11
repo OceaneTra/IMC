@@ -11,7 +11,7 @@
     <div class="container">
         <div class="left-side">
             <div class="headline">
-                Rejoignez notre communauté de <span class="highlight">professionnels de santé</span> et de<br>
+                Rejoignez notre communauté de <span class="highlight">professionnels de santé</span> et de
                 <span class="highlight">patients</span> en quelques clics !
             </div>
             <div class="illustration"></div>
@@ -35,9 +35,10 @@
                     <input type="password" placeholder="Confirmez votre mot de passe" required>
                     <select required>
                         <option value="" disabled selected>Je suis un...</option>
-                        <option value="patient">Patient</option>
+                        
                         <option value="medecin">Médecin</option>
-                        <option value="autre">Autre professionnel de santé</option>
+                        <option value="patient">Infirmier</option>
+                        <option value="secretaire">Secretaire</option>
                     </select>
                 </div>
                 

@@ -13,7 +13,7 @@
     <div class="container">
         <div class="left-side">
             <div class="headline">
-                Facilitez la connexion entre le <span class="highlight">personnel médical</span> et les<br>
+                Facilitez la connexion entre le <span class="highlight">personnel médical</span> et les
                 <span class="highlight"> patients </span> en ligne !
             </div>
             <div class="illustration"></div>
