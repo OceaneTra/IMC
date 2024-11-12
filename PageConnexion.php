@@ -29,17 +29,26 @@
 
             </div>
 
+            <?php
+            if (isset($_SESSION['error'])) {
+                echo '<div class="error-message">' . $_SESSION['error'] .
+                '</div>';
+                unset($_SESSION['error']);
+            }
+            ?>
 
-            <form>
+
+            <form action="traitement_connexion.php" method="POST">
                 <div class="form-group">
                     <input type="email" placeholder="Exemple : email@exemple.com">
                     <input type="password" placeholder="Entrez votre mot de passe">
                 </div>
 
-                <a href="#" class="login-button">Se Connecter</a>
+                <button type="submit" class="login-button" name="valider">Se Connecter</button>
+
 
                 <div class="forgot-password">
-                <a href="#">Vous avez oublié votre mot de passe ? </a>
+                    <a href="#">Vous avez oublié votre mot de passe ? </a>
                 </div>
 
                 <div class="remember-device">
@@ -65,7 +74,7 @@
 
                 <div class="terms">
                     En continuant, vous acceptez nos <a href="#">condition d'utilisation</a> et<br>
-                    <a href="#">politique de confidentialité</a>.
+                    notre <a href="#">politique de confidentialité</a>.
                 </div>
             </form>
         </div>

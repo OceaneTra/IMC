@@ -26,23 +26,22 @@
                 Déjà membre ? <a href="PageConnexion.php" class="register-link">Connectez-vous ici</a>
             </div>
             
-            <form>
+            <form action="insertion.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input type="text" placeholder="Nom" required>
-                    <input type="text" placeholder="Prénom" required>
-                    <input type="email" placeholder="Exemple : email@exemple.com" required>
-                    <input type="password" placeholder="Créez votre mot de passe" required>
-                    <input type="password" placeholder="Confirmez votre mot de passe" required>
-                    <select required>
+                    <input type="text" name="Nom" placeholder="Nom" required>
+                    <input type="text" name="Prenom" placeholder="Prénom" required>
+                    <input type="text" name="Telephone" placeholder="Numero de telephone" required>
+                    <input type="email" name="Email" placeholder="Exemple : email@exemple.com" required>
+                    <input type="password" name="Password" placeholder="Créez votre mot de passe" required>
+                    <select name="type_utilisateur" required>
                         <option value="" disabled selected>Je suis un...</option>
-                        
                         <option value="medecin">Médecin</option>
-                        <option value="patient">Infirmier</option>
-                        <option value="secretaire">Secretaire</option>
+                        <option value="infirmier">Infirmier</option>
+                        <option value="secretaire">Secrétaire</option>
                     </select>
                 </div>
                 
-                <a href="PageConnexion.php" class="login-button">Créer mon compte</a>
+                <button type="submit" class="login-button">Créer mon compte</button>
                 
                 <div class="divider">Ou inscrivez-vous avec</div>
                 
