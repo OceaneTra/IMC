@@ -41,6 +41,6 @@
     }
     ?>
 
-    <a href="deconnexion.php">Se déconnecter</a>
+    <a href="PageConnexion.php">Se déconnecter</a>
 </body>
 </html>
