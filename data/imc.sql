@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.7
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 11 nov. 2024 à 22:05
--- Version du serveur :  5.7.36
--- Version de PHP : 7.4.26
+-- Généré le : mar. 12 nov. 2024 à 13:47
+-- Version du serveur : 8.0.31
+-- Version de PHP : 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -30,15 +29,14 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `admin_cm`;
 CREATE TABLE IF NOT EXISTS `admin_cm` (
-  `id_admin` int(11) NOT NULL AUTO_INCREMENT,
+  `id_admin` int NOT NULL AUTO_INCREMENT,
   `email_admin` varchar(100) NOT NULL,
   `password_admin` varchar(30) NOT NULL,
-  `nom_admin` varchar(100) NOT NULL,
-  `prenom_admin` varchar(100) NOT NULL,
-  `tel_admin` varchar(15) NOT NULL,
-  `photo` varchar(255) NOT NULL,
+  `nom_admin` int NOT NULL,
+  `prenom_admin` int NOT NULL,
+  `tel_admin` int NOT NULL,
   PRIMARY KEY (`id_admin`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -48,13 +46,12 @@ CREATE TABLE IF NOT EXISTS `admin_cm` (
 
 DROP TABLE IF EXISTS `admin_imc`;
 CREATE TABLE IF NOT EXISTS `admin_imc` (
-  `id_imc` int(11) NOT NULL AUTO_INCREMENT,
+  `id_imc` int NOT NULL AUTO_INCREMENT,
   `nom_imc` varchar(20) NOT NULL,
   `email_imc` varchar(50) NOT NULL,
   `password_imc` varchar(30) NOT NULL,
-  `photo` int(11) NOT NULL,
   PRIMARY KEY (`id_imc`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -64,14 +61,14 @@ CREATE TABLE IF NOT EXISTS `admin_imc` (
 
 DROP TABLE IF EXISTS `centre_medical`;
 CREATE TABLE IF NOT EXISTS `centre_medical` (
-  `id_centre_medical` int(11) NOT NULL AUTO_INCREMENT,
-  `nom_cm` varchar(100) NOT NULL,
-  `description_cm` varchar(255) NOT NULL,
-  `localisation_cm` varchar(100) NOT NULL,
-  `tel_cm` varchar(20) NOT NULL,
-  `email_cm` varchar(100) NOT NULL,
+  `id_centre_medical` int NOT NULL AUTO_INCREMENT,
+  `nom_cm` int NOT NULL,
+  `description_cm` int NOT NULL,
+  `localisation_cm` int NOT NULL,
+  `tel_cm` int NOT NULL,
+  `email_cm` int NOT NULL,
   PRIMARY KEY (`id_centre_medical`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -81,15 +78,15 @@ CREATE TABLE IF NOT EXISTS `centre_medical` (
 
 DROP TABLE IF EXISTS `consultation`;
 CREATE TABLE IF NOT EXISTS `consultation` (
-  `id_consultation` int(11) NOT NULL AUTO_INCREMENT,
+  `id_consutation` int NOT NULL AUTO_INCREMENT,
   `date_consultation` date NOT NULL,
   `heure_consultation` time NOT NULL,
-  `id_patient` int(11) NOT NULL,
+  `id_patient` int NOT NULL,
   `nom_patient` varchar(20) NOT NULL,
   `prenom_patient` varchar(60) NOT NULL,
-  PRIMARY KEY (`id_consultation`),
+  PRIMARY KEY (`id_consutation`),
   UNIQUE KEY `id_patient` (`id_patient`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -99,18 +96,18 @@ CREATE TABLE IF NOT EXISTS `consultation` (
 
 DROP TABLE IF EXISTS `dm`;
 CREATE TABLE IF NOT EXISTS `dm` (
-  `id_dm` int(11) NOT NULL AUTO_INCREMENT,
+  `id_dm` int NOT NULL AUTO_INCREMENT,
   `date_dm` date NOT NULL,
-  `num_chambre` int(11) NOT NULL,
-  `id_consultation` int(11) NOT NULL,
-  `id_medecin` int(11) NOT NULL,
-  `id_patient` int(11) NOT NULL,
+  `num_chambre` int NOT NULL,
+  `id_consultation` int NOT NULL,
+  `id_medecin` int NOT NULL,
+  `id_patient` int NOT NULL,
   `type_analyse` varchar(30) NOT NULL,
   `type_chirurgie` varchar(30) NOT NULL,
-  `num_sejour` int(11) NOT NULL,
+  `num_sejour` int NOT NULL,
   PRIMARY KEY (`id_dm`),
   UNIQUE KEY `id_consultation` (`id_consultation`,`id_medecin`,`id_patient`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -120,33 +117,41 @@ CREATE TABLE IF NOT EXISTS `dm` (
 
 DROP TABLE IF EXISTS `facture`;
 CREATE TABLE IF NOT EXISTS `facture` (
-  `id_facture` int(11) NOT NULL AUTO_INCREMENT,
+  `id_facture` int NOT NULL AUTO_INCREMENT,
   `nom_patient` varchar(20) NOT NULL,
   `prenom_patient` varchar(60) NOT NULL,
   `date_facture` date NOT NULL,
   `heure_facture` time NOT NULL,
   `prix_total` decimal(10,0) NOT NULL,
-  `id_patient` int(11) NOT NULL,
+  `id_patient` int NOT NULL,
   PRIMARY KEY (`id_facture`),
   UNIQUE KEY `id_patient` (`id_patient`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `forfaits`
+-- Structure de la table `infirmier`
 --
 
-DROP TABLE IF EXISTS `forfaits`;
-CREATE TABLE IF NOT EXISTS `forfaits` (
-  `id_forfait` int(11) NOT NULL AUTO_INCREMENT,
-  `description_forfait` varchar(255) NOT NULL,
-  `prix_forfait` int(11) NOT NULL,
-  `type_forfait` enum('plan basic','plan business','plan entreprise') NOT NULL,
-  `statut_forfait` enum('actif','inactif') NOT NULL,
-  `fonctionnalites` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_forfait`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `infirmier`;
+CREATE TABLE IF NOT EXISTS `infirmier` (
+  `id_infirmier` int NOT NULL AUTO_INCREMENT,
+  `nom_infirmier` varchar(100) NOT NULL,
+  `prenom_infirmier` varchar(100) NOT NULL,
+  `tel_infirmier` varchar(20) NOT NULL,
+  `email_infirmier` varchar(100) NOT NULL,
+  `mot_de_passe` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_infirmier`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `infirmier`
+--
+
+INSERT INTO `infirmier` (`id_infirmier`, `nom_infirmier`, `prenom_infirmier`, `tel_infirmier`, `email_infirmier`, `mot_de_passe`) VALUES
+(2, 'Gomez', 'Ange Axel', '01724357689', 'gomez@gmail.com', '$2y$10$jjqxl.jVxzh6FqtXyJKobuKEHYyBFcsC4IGNi/HXm8.b/EXZB6r/G'),
+(4, 'Sokoty', 'Othniel', '0798453214', 'sokoty@gmail.com', '$2y$10$bASX8YLD4evDX.0OXaCRguHK6t86pfLqzaDGmYsH.GFNcLK.dZNei');
 
 -- --------------------------------------------------------
 
@@ -156,15 +161,24 @@ CREATE TABLE IF NOT EXISTS `forfaits` (
 
 DROP TABLE IF EXISTS `medecin`;
 CREATE TABLE IF NOT EXISTS `medecin` (
-  `id_medecin` int(11) NOT NULL AUTO_INCREMENT,
+  `id_medecin` int NOT NULL AUTO_INCREMENT,
   `nom_medecin` varchar(20) NOT NULL,
-  `adresse_medecin` varchar(100) NOT NULL,
+  `email_medecin` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `prenom_medecin` varchar(30) NOT NULL,
   `specialite` varchar(50) NOT NULL,
   `tel_medecin` varchar(30) NOT NULL,
-  `photo` varchar(255) NOT NULL,
+  `mot_de_passe` varchar(200) NOT NULL,
   PRIMARY KEY (`id_medecin`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `medecin`
+--
+
+INSERT INTO `medecin` (`id_medecin`, `nom_medecin`, `email_medecin`, `prenom_medecin`, `specialite`, `tel_medecin`, `mot_de_passe`) VALUES
+(1, 'krouma', 'franckrouma2@gmail.com', 'franck adams', '', '0142493820', '$2y$10$tBa6hKQdVY8gOj4RrlkEYebYaQjq4skKLxDR1cjXqa2NP47JohtuK'),
+(2, 'Kassy', 'kassy@gmail.com', 'Yannis', '', '0505647892', '$2y$10$jKIuhXJQqtrBIvw0Jvg5u.bPNRPSs7zcPxk3hONvLLi/S.NwUhAoe'),
+(3, 'Yoro', 'moussa@gmail.com', 'Moussa', '', '0123576930', '$2y$10$mDg6XRmFN.9ohMcT923kwuCir2YUrGcHdfDHhIF.2282yO7wl7Ui2');
 
 -- --------------------------------------------------------
 
@@ -174,16 +188,16 @@ CREATE TABLE IF NOT EXISTS `medecin` (
 
 DROP TABLE IF EXISTS `ordonnance`;
 CREATE TABLE IF NOT EXISTS `ordonnance` (
-  `id_ordonnance` int(11) NOT NULL AUTO_INCREMENT,
+  `id_ordonnance` int NOT NULL AUTO_INCREMENT,
   `date_ordonnance` date NOT NULL,
   `heure_ordonnance` time NOT NULL,
   `nom_patient` varchar(20) NOT NULL,
   `prenom_patient` varchar(60) NOT NULL,
-  `id_patient` int(11) NOT NULL,
-  `dosage` varchar(100) NOT NULL,
+  `id_patient` int NOT NULL,
+  `dosage` int NOT NULL,
   PRIMARY KEY (`id_ordonnance`),
   UNIQUE KEY `id_patient` (`id_patient`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -193,32 +207,15 @@ CREATE TABLE IF NOT EXISTS `ordonnance` (
 
 DROP TABLE IF EXISTS `patient`;
 CREATE TABLE IF NOT EXISTS `patient` (
-  `id_patient` int(11) NOT NULL AUTO_INCREMENT,
+  `id_patient` int NOT NULL AUTO_INCREMENT,
   `nom_patient` varchar(20) NOT NULL,
   `prenom_patient` varchar(60) NOT NULL,
-  `sexe_patient` enum('Homme','Femme') NOT NULL,
-  `adresse_mail_patient` varchar(100) NOT NULL,
+  `adresse_patient` varchar(100) NOT NULL,
   `tel_patient` varchar(50) NOT NULL,
-  `id_dm` int(11) NOT NULL,
+  `id_dm` int NOT NULL,
   PRIMARY KEY (`id_patient`),
   UNIQUE KEY `id_dm` (`id_dm`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `personnels`
---
-
-DROP TABLE IF EXISTS `personnels`;
-CREATE TABLE IF NOT EXISTS `personnels` (
-  `id_personnel` int(11) NOT NULL AUTO_INCREMENT,
-  `type_personnel` varchar(20) NOT NULL,
-  `nom` varchar(20) NOT NULL,
-  `prenom` varchar(30) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  PRIMARY KEY (`id_personnel`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -228,13 +225,37 @@ CREATE TABLE IF NOT EXISTS `personnels` (
 
 DROP TABLE IF EXISTS `rdv`;
 CREATE TABLE IF NOT EXISTS `rdv` (
-  `id_rdv` int(11) NOT NULL AUTO_INCREMENT,
+  `id_rdv` int NOT NULL AUTO_INCREMENT,
   `date_rdv` date NOT NULL,
   `heure_rdv` time NOT NULL,
-  `id_patient` int(11) NOT NULL,
+  `id_patient` int NOT NULL,
   PRIMARY KEY (`id_rdv`),
   UNIQUE KEY `id_patient` (`id_patient`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `secretaire`
+--
+
+DROP TABLE IF EXISTS `secretaire`;
+CREATE TABLE IF NOT EXISTS `secretaire` (
+  `id_secretaire` int NOT NULL AUTO_INCREMENT,
+  `nom_secretaire` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `prenom_secretaire` varchar(100) NOT NULL,
+  `tel_secretaire` varchar(20) NOT NULL,
+  `email_secretaire` varchar(100) NOT NULL,
+  `mot_de_passe` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_secretaire`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `secretaire`
+--
+
+INSERT INTO `secretaire` (`id_secretaire`, `nom_secretaire`, `prenom_secretaire`, `tel_secretaire`, `email_secretaire`, `mot_de_passe`) VALUES
+(1, 'Kassy', 'Yannis', '0505647892', 'kassy@gmail.com', '$2y$10$hgWd4wppl5xbClhhzd6YnestpjGDlx.xZ0YbaKj8IpHGSpHlZVgqS');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

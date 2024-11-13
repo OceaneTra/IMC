@@ -86,7 +86,7 @@
 
             <?php
 
-            switch ($_GET['page']) {
+            switch ($_GET['page'] ?? 'dashboard') {
                 case 'dashboard':
                     include("dashboard.php");
                     break;
