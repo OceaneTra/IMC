@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 12 nov. 2024 à 13:47
+-- Généré le : mer. 13 nov. 2024 à 22:22
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -142,16 +142,18 @@ CREATE TABLE IF NOT EXISTS `infirmier` (
   `tel_infirmier` varchar(20) NOT NULL,
   `email_infirmier` varchar(100) NOT NULL,
   `mot_de_passe` varchar(255) NOT NULL,
+  `photo` varchar(150) NOT NULL,
   PRIMARY KEY (`id_infirmier`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `infirmier`
 --
 
-INSERT INTO `infirmier` (`id_infirmier`, `nom_infirmier`, `prenom_infirmier`, `tel_infirmier`, `email_infirmier`, `mot_de_passe`) VALUES
-(2, 'Gomez', 'Ange Axel', '01724357689', 'gomez@gmail.com', '$2y$10$jjqxl.jVxzh6FqtXyJKobuKEHYyBFcsC4IGNi/HXm8.b/EXZB6r/G'),
-(4, 'Sokoty', 'Othniel', '0798453214', 'sokoty@gmail.com', '$2y$10$bASX8YLD4evDX.0OXaCRguHK6t86pfLqzaDGmYsH.GFNcLK.dZNei');
+INSERT INTO `infirmier` (`id_infirmier`, `nom_infirmier`, `prenom_infirmier`, `tel_infirmier`, `email_infirmier`, `mot_de_passe`, `photo`) VALUES
+(2, 'Gomez', 'Ange Axel', '01724357689', 'gomez@gmail.com', '$2y$10$jjqxl.jVxzh6FqtXyJKobuKEHYyBFcsC4IGNi/HXm8.b/EXZB6r/G', ''),
+(4, 'Sokoty', 'Othniel', '0798453214', 'sokoty@gmail.com', '$2y$10$bASX8YLD4evDX.0OXaCRguHK6t86pfLqzaDGmYsH.GFNcLK.dZNei', ''),
+(5, 'krouma', 'francki', '0142493820', 'franckrouma2@gmail.com', '$2y$10$MeJQk4oihrbB2NPZQCFhG.R0Aa20uRBWSXTlCGnIBsBjnC6yCW5Kq', '');
 
 -- --------------------------------------------------------
 
@@ -168,17 +170,18 @@ CREATE TABLE IF NOT EXISTS `medecin` (
   `specialite` varchar(50) NOT NULL,
   `tel_medecin` varchar(30) NOT NULL,
   `mot_de_passe` varchar(200) NOT NULL,
+  `photo` varchar(150) NOT NULL,
   PRIMARY KEY (`id_medecin`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `medecin`
 --
 
-INSERT INTO `medecin` (`id_medecin`, `nom_medecin`, `email_medecin`, `prenom_medecin`, `specialite`, `tel_medecin`, `mot_de_passe`) VALUES
-(1, 'krouma', 'franckrouma2@gmail.com', 'franck adams', '', '0142493820', '$2y$10$tBa6hKQdVY8gOj4RrlkEYebYaQjq4skKLxDR1cjXqa2NP47JohtuK'),
-(2, 'Kassy', 'kassy@gmail.com', 'Yannis', '', '0505647892', '$2y$10$jKIuhXJQqtrBIvw0Jvg5u.bPNRPSs7zcPxk3hONvLLi/S.NwUhAoe'),
-(3, 'Yoro', 'moussa@gmail.com', 'Moussa', '', '0123576930', '$2y$10$mDg6XRmFN.9ohMcT923kwuCir2YUrGcHdfDHhIF.2282yO7wl7Ui2');
+INSERT INTO `medecin` (`id_medecin`, `nom_medecin`, `email_medecin`, `prenom_medecin`, `specialite`, `tel_medecin`, `mot_de_passe`, `photo`) VALUES
+(1, 'krouma', 'franckrouma2@gmail.com', 'franck adams', '', '0142493820', '$2y$10$tBa6hKQdVY8gOj4RrlkEYebYaQjq4skKLxDR1cjXqa2NP47JohtuK', ''),
+(4, 'Koffi', 'kassy@gmail.com', 'Christ', 'Cardiologue', '0512625892', '$2y$10$9dcqoRxXQlp9lgVdB73R2ewUxcGVhkyGnNToL5gH5y5wzwsew9J12', ''),
+(5, 'Kassy', 'kassy@gmail.com', 'Yannis', 'Dentiste', '0505647892', '$2y$10$PtZbtFz.jDsRGnH7rDMHYu/Fn8c21sjtpaB//gb2lY16T6iOc0GUe', 'img/ail.png');
 
 -- --------------------------------------------------------
 
@@ -210,6 +213,8 @@ CREATE TABLE IF NOT EXISTS `patient` (
   `id_patient` int NOT NULL AUTO_INCREMENT,
   `nom_patient` varchar(20) NOT NULL,
   `prenom_patient` varchar(60) NOT NULL,
+  `age_patient` int NOT NULL,
+  `sexe_patient` varchar(20) NOT NULL,
   `adresse_patient` varchar(100) NOT NULL,
   `tel_patient` varchar(50) NOT NULL,
   `id_dm` int NOT NULL,
@@ -247,6 +252,7 @@ CREATE TABLE IF NOT EXISTS `secretaire` (
   `tel_secretaire` varchar(20) NOT NULL,
   `email_secretaire` varchar(100) NOT NULL,
   `mot_de_passe` varchar(255) NOT NULL,
+  `photo` varchar(150) NOT NULL,
   PRIMARY KEY (`id_secretaire`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -254,8 +260,8 @@ CREATE TABLE IF NOT EXISTS `secretaire` (
 -- Déchargement des données de la table `secretaire`
 --
 
-INSERT INTO `secretaire` (`id_secretaire`, `nom_secretaire`, `prenom_secretaire`, `tel_secretaire`, `email_secretaire`, `mot_de_passe`) VALUES
-(1, 'Kassy', 'Yannis', '0505647892', 'kassy@gmail.com', '$2y$10$hgWd4wppl5xbClhhzd6YnestpjGDlx.xZ0YbaKj8IpHGSpHlZVgqS');
+INSERT INTO `secretaire` (`id_secretaire`, `nom_secretaire`, `prenom_secretaire`, `tel_secretaire`, `email_secretaire`, `mot_de_passe`, `photo`) VALUES
+(1, 'Kassy', 'Yannis', '0505647892', 'kassy@gmail.com', '$2y$10$hgWd4wppl5xbClhhzd6YnestpjGDlx.xZ0YbaKj8IpHGSpHlZVgqS', '0');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
