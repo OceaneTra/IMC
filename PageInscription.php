@@ -33,15 +33,18 @@
                     <input type="text" name="Telephone" placeholder="Numero de telephone" required>
                     <input type="email" name="Email" placeholder="Exemple : email@exemple.com" required>
                     <input type="password" name="Password" placeholder="Créez votre mot de passe" required>
+                    
                     <select name="type_utilisateur" id="type_utilisateur" onchange="toggleSpecialityField()" required>
                         <option value="" disabled selected>Je suis un...</option>
                         <option value="medecin">Médecin</option>
                         <option value="infirmier">Infirmier</option>
                         <option value="secretaire">Secrétaire</option>
                     </select>
+                   
 
                     <!-- Champ spécialité caché par défaut -->
                     <input type="text" name="Specialite" id="specialite" placeholder="Spécialité" style="display: none;">
+                    <input type="file" id="photoProfil" name="photo" accept="photo/*" title="Insérer photo" required>
                 </div>
                 
                 <button type="submit" class="login-button">Créer mon compte</button>
