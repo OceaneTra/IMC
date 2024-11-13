@@ -163,8 +163,6 @@ if (isset($_GET['action']) && isset($_GET['id']) && $_GET['action'] == 'supprime
 
             if ($lignes) {
                 foreach ($lignes as $ligne) { ?>
-
-
                     <tbody>
                         <tr style="text-align:center;">
                             <td><?php echo $ligne["id_forfait"]; ?></td>

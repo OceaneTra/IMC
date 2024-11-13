@@ -51,6 +51,10 @@
     display: flex;
 }
 
+.items:hover {
+    cursor: pointer;
+}
+
 .items .title {
     display: flex;
     align-items: center;
