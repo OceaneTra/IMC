@@ -33,12 +33,15 @@
                     <input type="text" name="Telephone" placeholder="Numero de telephone" required>
                     <input type="email" name="Email" placeholder="Exemple : email@exemple.com" required>
                     <input type="password" name="Password" placeholder="Créez votre mot de passe" required>
-                    <select name="type_utilisateur" required>
+                    <select name="type_utilisateur" id="type_utilisateur" onchange="toggleSpecialityField()" required>
                         <option value="" disabled selected>Je suis un...</option>
                         <option value="medecin">Médecin</option>
                         <option value="infirmier">Infirmier</option>
                         <option value="secretaire">Secrétaire</option>
                     </select>
+
+                    <!-- Champ spécialité caché par défaut -->
+                    <input type="text" name="Specialite" id="specialite" placeholder="Spécialité" style="display: none;">
                 </div>
                 
                 <button type="submit" class="login-button">Créer mon compte</button>
@@ -66,5 +69,21 @@
             </form>
         </div>
     </div>
+
+    <script>
+        function toggleSpecialityField() {
+            const typeUtilisateur = document.getElementById("type_utilisateur").value;
+            const specialiteField = document.getElementById("specialite");
+
+            // Afficher le champ spécialité uniquement pour "médecin" ou "infirmier"
+            if (typeUtilisateur === "medecin") {
+                specialiteField.style.display = "block";
+                specialiteField.required = true; // Rendre le champ requis
+            } else {
+                specialiteField.style.display = "none";
+                specialiteField.required = false; // Rendre le champ non requis
+            }
+        }
+    </script>
 </body>
 </html>

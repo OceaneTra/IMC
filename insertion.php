@@ -15,14 +15,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         switch ($type_utilisateur) {
             case 'medecin':
+                 // Récupération de la spécialité seulement pour "médecin"
+                 $specialite = htmlspecialchars($_POST['Specialite']);
+                 
                 $sql = "INSERT INTO medecin (nom_medecin, prenom_medecin, tel_medecin, email_medecin, specialite, mot_de_passe) 
-                        VALUES (:nom, :prenom, :tel, :email, '', :password)";
+                        VALUES (:nom, :prenom, :tel, :email, :specialite, :password)";
                 $stmt = $connexion->prepare($sql);
                 $stmt->execute([
                     ':nom' => $nom,
                     ':prenom' => $prenom,
                     ':tel' => $telephone,
                     ':email' => $email,
+                    ':specialite' => $specialite,
                     ':password' => $password
                 ]);
                 $message = "Médecin enregistré avec succès!";
