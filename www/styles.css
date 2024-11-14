@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+
+h1 {
+    font-size: 2em;
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    margin: 0; /* Enlever la marge par défaut */
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 10px; /* Espacement entre le titre et le calendrier */
+    padding: 20px;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s forwards; /* Applique l'animation */
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+
+section{
+   
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 500px;
+}
+
+
+.calendrier-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    max-width: 1000px;
+    margin: 150px;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.calendrier-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+}
+
+.calendrier-header h2{
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.calendrier-header button {
+    background-color: white;
+    color: #007BFF;
+    border: none;
+    padding: 5px 10px;
+    margin:5px 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.calendrier-header button:hover {
+    background-color: #e0e0e0;
+}
+
+.calendrier-grid{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    padding: 50px;
+}
+
+.calendrier-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 colonnes de taille égale */
+    gap: 0px; /* Aucun espace entre les jours pour un alignement parfait */
+    margin-bottom: 10px;
+    text-align: center; /* Centre le texte dans chaque cellule */
+    width: 100%; /* Centre le texte dans chaque cellule */
+}
+
+.calendrier-days div {
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+    color: #333;
+    background-color: #c8d6f5; /* Couleur de fond pour démarquer */
+}
+
+
+.day-cell{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.day-cell:hover{
+    background-color: #007BFF;
+    color: white;
+}
+
+.empty-cell{
+    width: 60px;
+    height: 60px;
+    background-color: transparent;
+}
+/*Style pour la fenetre modale*/
+.modal {
+    display: none; /* Cacher par défaut */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Animation pour faire apparaître la modale */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px; /* Largeur de la fenêtre modale */
+    max-width: 90%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Ombre douce */
+    text-align: center;
+}
+
+.modal-content button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+}
+
+.modal-content button:hover {
+    background-color: #0056b3;
+}
+
+.close{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+}
+
+.modal-content h3 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+    font-family: 'Arial', sans-serif;  
+    font-weight: 500;  
+}
+
+
+#appointment-summary {
+    margin-top: 20px;
+    font-size: 1em;
+    color: #333;
+    padding: 10px;
+}
+
+#appointment-time {
+    width: 100%; 
+    padding: 12px 20px;
+    font-size: 1.2em;  
+    border-radius: 8px; 
+    border: 1px solid #007BFF;  
+    background-color: #f0f8ff; 
+    color: #333;  
+    box-sizing: border-box;  
+    margin-bottom: 20px;  /* Espacement en bas */
+    transition: all 0.3s ease;  
+    font-family: 'Arial', sans-serif;  
+    font-weight: bold; 
+}
+
+#appointment-time:focus {
+    outline: none;  /* Retire le contour par défaut */
+    border: 2px solid #0056b3;  /* Bordure bleue plus foncée */
+    background-color: #e6f7ff;  /* Changer la couleur de fond lorsqu'il est actif */
+}
+
+button {
+    padding: 12px 24px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;  /* Agrandir la taille du texte dans le bouton */
+    transition: background-color 0.3s ease;
+    font-family: 'Arial', sans-serif;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+/*Style pour le recapitulatif du renvez-vous*/
+#appointment-summary {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#appointment-summary-title{
+        font-size: 3rem;
+        font-family: Arial, sans-serif;
+        color: #333;
+       display: none;
+}
+
+#summary {
+    font-size: 2rem;
+    color: #555;
+}
