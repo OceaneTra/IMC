@@ -105,7 +105,7 @@ $photo_utilisateur = $utilisateur['photo'] ?? 'default.jpg';
         </ul>
 
         <div class="personal">
-        <img src="img/priscille.jpg" alt="Profile">
+        <img src="<?php  echo $photo_utilisateur?>" alt="Profile">
             <div class="info">
                 <h3 class="nom"><?= htmlspecialchars($nom_utilisateur) . ' ' . htmlspecialchars($prenom_utilisateur) ?></h3>
                 <h5 class="fonction"><?= ucfirst($user_type) ?></h5>
