@@ -103,7 +103,7 @@ include __DIR__ . '/www/config/db_connect.php';
 
             <div class="card-patient">
                 <div class="infos_pat">
-                    <img src="../IMC/img/pp1.avif" width="80px" height="80px"           alt="Profile">
+                    <img src="../IMC/img/pp1.avif" width="80px" height="80px"       alt="Profile">
                     <div class="info_pat">
                         <h3 class="nom_pat">Mickl Smith</h3>
                         <h5 class="age_pat">45 years</h5>

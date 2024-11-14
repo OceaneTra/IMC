@@ -117,8 +117,11 @@
     border-radius: 50%;
     margin-right: 12px;
     background-color: #eee;
-    
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
+
 
 .info {
     flex: 1;

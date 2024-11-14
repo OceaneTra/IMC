@@ -38,8 +38,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                (isset($utilisateur['id_secretaire']) ? 'secretaire' : 'infirmier');
                 $_SESSION['utilisateur_nom'] = $utilisateur['nom_' . $_SESSION['utilisateur_type']] . ' ' .  $utilisateur['prenom_' . $_SESSION['utilisateur_type']];
 
-                // Redirection vers la page d'accueil après connexion
-                header("Location: dashboard.php");
+                 // Redirection vers l'interface spécifique selon le rôle
+                 if ($_SESSION['utilisateur_type'] == 'medecin') {
+                    header("Location: medecin_dashboard.php");
+                } elseif ($_SESSION['utilisateur_type'] == 'secretaire') {
+                    header("Location: secretaire_dashboard.php");
+                } elseif ($_SESSION['utilisateur_type'] == 'infirmier') {
+                    header("Location: infirmier_dashboard.php");
+                }
                 exit();
             } else {
                 $_SESSION['error'] = "Mot de passe incorrect";

@@ -1,5 +1,5 @@
 <?php 
-session_start();
+
 
 include __DIR__ . '/www/config/db_connect.php'; 
 ?>
@@ -33,7 +33,7 @@ include __DIR__ . '/www/config/db_connect.php';
             </thead>
 
             <?php
-            $rq = $bdd->prepare("SELECT * FROM patient");
+            $rq = $connexion->prepare("SELECT * FROM patient");
             $rq->execute();
             $lignes = $rq->fetchAll();
             if ($lignes) {

@@ -1,5 +1,5 @@
 <?php 
-session_start();
+
 
 include __DIR__ . '/www/config/db_connect.php'; 
 ?>
