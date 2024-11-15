@@ -116,7 +116,7 @@ include("C:/wamp64/www/Ivoire_Medical_Center/IMC/config/db_connect.php");
         </div>
 
 
-        <!----Partie Php---->
+       
 
     </main>
 

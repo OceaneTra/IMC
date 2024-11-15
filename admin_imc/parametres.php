@@ -67,6 +67,7 @@ if (isset($_SESSION['id_imc'])) {
 if (isset($_POST['supprimer'])) {
     $requete = $bdd->prepare('UPDATE admin_imc SET photo_profil = " "  WHERE id_imc = ? ');
     $requete->execute([$_SESSION['id_imc']]);
+    $_SESSION['photo_profil'] = ' ';
     header("Location: index.php?page=gsParams");
     exit();
 }
