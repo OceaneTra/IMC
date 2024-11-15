@@ -23,7 +23,7 @@ if (isset($_GET['action']) && isset($_GET['id']) && $_GET['action'] == 'supprime
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Document</title>
-    <link rel="stylesheet" href="/Ivoire_Medical_Center/IMC/admin_cm/assets/css/medecin/patients_styles.css">
+    <link rel="stylesheet" href="/Ivoire_Medical_Center/IMC/admin_cm/assets/css/medecin/style_patient.css">
 
 </head>
 
@@ -58,19 +58,22 @@ if (isset($_GET['action']) && isset($_GET['id']) && $_GET['action'] == 'supprime
                             <td><?php echo $ligne["adresse_patient"]; ?></td>
                             <td><?php echo $ligne["tel_patient"]; ?></td>
                             <td style="display:flex; gap: 5px;  justify-content:center; padding: 20px;">
-                                <a href="?page=patient&id=<?php echo $ligne["id_patient"]; ?>&action=afficher" onclick="openModal()">Dossier medical</a>
+                                <a href="javascript:void(0) ?page=patient&id=<?php echo $ligne["id_patient"];
+                                                                                ?>" onclick="openModal()">Dossier medical</a>
                                 <a href="?page=patient&id=<?php echo $ligne["id_patient"]; ?>&action=supprimer">Supprimer</a>
                             </td>
                         </tr>
                     </tbody>
             <?php }
             } ?>
-
+            <!-----?page=patient&id=<?php // echo $ligne["id_patient"]; 
+                                    ?>&action=afficher ----->
         </table>
     </section>
 
 
     <div id="dossier_medical">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
         <form action="" method="post">
             <h2>DOSSIER MEDICAL</h2>
             <div class="num_dossier">
@@ -160,14 +163,20 @@ if (isset($_GET['action']) && isset($_GET['id']) && $_GET['action'] == 'supprime
             <input type="submit" name="enregistrer" value="Enregistrer">
 
         </form>
-
     </div>
 
 
     <script>
+        function openModal() {
+            document.getElementById('dossier_medical').style.display = "flex";
+        }
 
+        function closeModal() {
+            document.getElementById('dossier_medical').style.display = "none";
+        }
     </script>
 
 
 </body>
+
 </html>
