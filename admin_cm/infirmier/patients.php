@@ -1,4 +1,17 @@
-<?php include("C:/wamp64/www/Ivoire_Medical_Center/IMC/config/db_connect.php"); ?>
+<?php include("C:/wamp64/www/Ivoire_Medical_Center/IMC/config/db_connect.php"); 
+
+/* traitement suppression */
+if (isset($_GET['action']) && isset($_GET['id']) && $_GET['action'] == 'supprimer') {
+    $id_patient = $_GET['id'];
+    $req = $bdd->prepare("DELETE FROM patient WHERE id_patient = ?");
+    $req->execute([$id_patient]);
+
+    header("Location: ?page=patient");
+    exit();
+}
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,8 +56,8 @@
                             <td><?php echo $ligne["adresse_patient"]; ?></td>
                             <td><?php echo $ligne["tel_patient"]; ?></td>
                             <td style="display:flex; gap: 5px;  justify-content:center; padding: 20px;">
-                                <a href="?page=dashboard&id=<?php echo $ligne["id_patient"]; ?>&action=afficher">Dossier medical</a>
-                                <a href="?page=dashboard&id=<?php echo $ligne["id_patient"]; ?>&action=supprimer">Supprimer</a>
+                                <a href="?page=patient&id=<?php echo $ligne["id_patient"]; ?>&action=afficher">Dossier medical</a>
+                                <a href="?page=patient&id=<?php echo $ligne["id_patient"]; ?>&action=supprimer">Supprimer</a>
                             </td>
                         </tr>
                     </tbody>

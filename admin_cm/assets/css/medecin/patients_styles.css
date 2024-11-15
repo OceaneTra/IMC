@@ -1,0 +1,270 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+
+#list_patient {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+#list_patient h4 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 18px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #f8f9fa;
+}
+
+th,
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+
+}
+
+th {
+    font-weight: 600;
+    color: #666;
+}
+
+td a {
+    color: #007bff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #e7f1ff;
+    transition: background-color 0.3s;
+}
+
+td a:hover {
+    background-color: #cce5ff;
+}
+
+
+table tbody td a:nth-of-type(1) {
+    color: #ffffff;
+    background-color: #405ae7;
+    border: 2px solid #eee;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 700;
+    width: 70%;
+}
+
+table tbody td a:nth-of-type(1):hover {
+    background: #2c3bb3;
+    transition: background 0.3s;
+
+}
+
+table tbody td a:nth-of-type(2) {
+    color: #405ae7;
+    background-color: #ffff;
+    border: 2px solid #405ae7;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    width: 70%;
+    font-weight: 700;
+}
+
+table tbody td a:nth-of-type(2):hover {
+    background: #eeee;
+    transition: background 0.3s;
+
+}
+
+:root {
+    --primary-color: #4A90E2;
+    --secondary-color: #67B8E3;
+    --accent-color: #FF6B6B;
+    --background-color: #F5F7FA;
+    --text-color: #2C3E50;
+    --border-radius: 12px;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
+#dossier_medical {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+   display: none;
+    
+}
+
+#dossier_medical::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+h2 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    text-align: center;
+    position: relative;
+}
+
+.infos_patient {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="datetime"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #E1E8ED;
+    border-radius: var(--border-radius);
+    background: #FFFFFF;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="datetime"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.sexe {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sexe label {
+    margin-bottom: 0;
+}
+
+.sexe input[type="radio"] {
+    accent-color: var(--primary-color);
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.antecedents {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.antecedents th {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 1rem;
+    text-align: left;
+}
+
+input[type="submit"] {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: block;
+    margin: 2rem auto 0;
+}
+
+input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(74, 144, 226, 0.2);
+}
+
+/* Animation d'entrée */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#dossier_medical {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Style spécial pour le groupe sanguin */
+.groupe_sanguin select {
+    background-image: linear-gradient(45deg, transparent 50%, var(--primary-color) 50%),
+                    linear-gradient(135deg, var(--primary-color) 50%, transparent 50%);
+    background-position: calc(100% - 20px) calc(1em + 2px),
+                       calc(100% - 15px) calc(1em + 2px);
+    background-size: 5px 5px,
+                   5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 3rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    #dossier_medical {
+        padding: 1.5rem;
+    }
+
+    .infos_patient {
+        grid-template-columns: 1fr;
+    }
+}
