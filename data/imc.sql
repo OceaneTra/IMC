@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 13 nov. 2024 à 22:22
+-- Généré le : ven. 15 nov. 2024 à 04:15
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -144,16 +144,16 @@ CREATE TABLE IF NOT EXISTS `infirmier` (
   `mot_de_passe` varchar(255) NOT NULL,
   `photo` varchar(150) NOT NULL,
   PRIMARY KEY (`id_infirmier`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `infirmier`
 --
 
 INSERT INTO `infirmier` (`id_infirmier`, `nom_infirmier`, `prenom_infirmier`, `tel_infirmier`, `email_infirmier`, `mot_de_passe`, `photo`) VALUES
-(2, 'Gomez', 'Ange Axel', '01724357689', 'gomez@gmail.com', '$2y$10$jjqxl.jVxzh6FqtXyJKobuKEHYyBFcsC4IGNi/HXm8.b/EXZB6r/G', ''),
-(4, 'Sokoty', 'Othniel', '0798453214', 'sokoty@gmail.com', '$2y$10$bASX8YLD4evDX.0OXaCRguHK6t86pfLqzaDGmYsH.GFNcLK.dZNei', ''),
-(5, 'krouma', 'francki', '0142493820', 'franckrouma2@gmail.com', '$2y$10$MeJQk4oihrbB2NPZQCFhG.R0Aa20uRBWSXTlCGnIBsBjnC6yCW5Kq', '');
+(6, 'krouma', 'franck', '0142493820', 'franckrouma2@gmail.com', '$2y$10$ODikzWXy4zo.yTYKs8TUyOI1pTDBSp6S1fdpctG8EGEixT.87Xybi', 'img/Photo identité.jpg'),
+(7, 'Gomez', 'ange', '0129384756', 'ange@gmail.com', '$2y$10$Tn1QyI/HXO5A1mJfrVwaDOjs4TfpKPumaVh85viPa64WuRfI7o7..', 'img/Drogba.jpeg'),
+(8, 'Assoumou', 'esther', '0102034523', 'assoumou@gmail.com', '$2y$10$DMU7T7qGjBjGub2RqRffMe8LGwGTkJ5e2Y1GK1yj91HXefinXwk2m', 'img/sokoty.jpg');
 
 -- --------------------------------------------------------
 
@@ -173,15 +173,6 @@ CREATE TABLE IF NOT EXISTS `medecin` (
   `photo` varchar(150) NOT NULL,
   PRIMARY KEY (`id_medecin`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Déchargement des données de la table `medecin`
---
-
-INSERT INTO `medecin` (`id_medecin`, `nom_medecin`, `email_medecin`, `prenom_medecin`, `specialite`, `tel_medecin`, `mot_de_passe`, `photo`) VALUES
-(1, 'krouma', 'franckrouma2@gmail.com', 'franck adams', '', '0142493820', '$2y$10$tBa6hKQdVY8gOj4RrlkEYebYaQjq4skKLxDR1cjXqa2NP47JohtuK', ''),
-(4, 'Koffi', 'kassy@gmail.com', 'Christ', 'Cardiologue', '0512625892', '$2y$10$9dcqoRxXQlp9lgVdB73R2ewUxcGVhkyGnNToL5gH5y5wzwsew9J12', ''),
-(5, 'Kassy', 'kassy@gmail.com', 'Yannis', 'Dentiste', '0505647892', '$2y$10$PtZbtFz.jDsRGnH7rDMHYu/Fn8c21sjtpaB//gb2lY16T6iOc0GUe', 'img/ail.png');
 
 -- --------------------------------------------------------
 
@@ -220,7 +211,14 @@ CREATE TABLE IF NOT EXISTS `patient` (
   `id_dm` int NOT NULL,
   PRIMARY KEY (`id_patient`),
   UNIQUE KEY `id_dm` (`id_dm`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `patient`
+--
+
+INSERT INTO `patient` (`id_patient`, `nom_patient`, `prenom_patient`, `age_patient`, `sexe_patient`, `adresse_patient`, `tel_patient`, `id_dm`) VALUES
+(1, 'Katie', 'Myriam', 18, 'F', 'katie@gmail.com', '0505945527', 2);
 
 -- --------------------------------------------------------
 
@@ -236,7 +234,14 @@ CREATE TABLE IF NOT EXISTS `rdv` (
   `id_patient` int NOT NULL,
   PRIMARY KEY (`id_rdv`),
   UNIQUE KEY `id_patient` (`id_patient`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `rdv`
+--
+
+INSERT INTO `rdv` (`id_rdv`, `date_rdv`, `heure_rdv`, `id_patient`) VALUES
+(1, '0000-00-00', '08:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -254,14 +259,16 @@ CREATE TABLE IF NOT EXISTS `secretaire` (
   `mot_de_passe` varchar(255) NOT NULL,
   `photo` varchar(150) NOT NULL,
   PRIMARY KEY (`id_secretaire`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `secretaire`
 --
 
 INSERT INTO `secretaire` (`id_secretaire`, `nom_secretaire`, `prenom_secretaire`, `tel_secretaire`, `email_secretaire`, `mot_de_passe`, `photo`) VALUES
-(1, 'Kassy', 'Yannis', '0505647892', 'kassy@gmail.com', '$2y$10$hgWd4wppl5xbClhhzd6YnestpjGDlx.xZ0YbaKj8IpHGSpHlZVgqS', '0');
+(2, 'Kouadio', 'chantal', '0140651234', 'chantal@gmail.com', '$2y$10$VMihCJkJf1jSwsHDA0Bzg.A1x69wM9Oz9Q/a64Ro4Vde/kpPVWA22', 'img/WhatsApp Image 2023-10-01 à 14.30.55_eb1a94f3.jpg'),
+(3, 'nguessan', 'amlan', '0707877953', 'priscillenguessan@gmail.com', '$2y$10$GYv3L3qwkfd0o60DiQxydeOgl0qrAI4FJD9ANWs4bcfOAR0gQ8cRu', 'img/sara.jpg'),
+(4, 'krouma', 'kady', '0103707775', 'kady@gmail.com', '$2y$10$2sb6tzha/VuiTp2W7emdSeRwQVct9VGVH72i6UlQKHHV74RqYGtPi', 'img/sokoty.jpg');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

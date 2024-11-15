@@ -1,8 +1,46 @@
-<?php 
+<?php
+session_start();
+include __DIR__ . '/www/config/db_connect.php';
 
+if (!isset($_SESSION['utilisateur_id'])) {
+    header("Location: PageConnexion.php");
+    exit();
+}
 
-include __DIR__ . '/www/config/db_connect.php'; 
+$user_id = $_SESSION['utilisateur_id'];
+$user_type = $_SESSION['utilisateur_type'];
+
+// Optimisation de la requête SQL avec un switch
+$sql = "";
+switch ($user_type) {
+    case 'medecin':
+        $sql = "SELECT nom_medecin as nom, prenom_medecin as prenom, photo FROM medecin WHERE id_medecin = :id";
+        break;
+    case 'secretaire':
+        $sql = "SELECT nom_secretaire as nom, prenom_secretaire as prenom, photo FROM secretaire WHERE id_secretaire = :id";
+        break;
+    case 'infirmier':
+        $sql = "SELECT nom_infirmier as nom, prenom_infirmier as prenom, photo FROM infirmier WHERE id_infirmier = :id";
+        break;
+}
+
+$stmt = $connexion->prepare($sql);
+$stmt->execute([':id' => $user_id]);
+$utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$nom_utilisateur = $utilisateur['nom'] ?? '';
+$prenom_utilisateur = $utilisateur['prenom'] ?? '';
+$photo_utilisateur = $utilisateur['photo'] ?? 'default.jpg';
 ?>
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -68,25 +106,26 @@ include __DIR__ . '/www/config/db_connect.php';
         </ul>
 
         <div class="personal">
-            <img src="/api/placeholder/45/45" alt="Profile">
+        <img src="<?php  echo $photo_utilisateur?>" alt="Profile">
             <div class="info">
-                <h3 class="nom">Marie Konan</h3>
-                <h5 class="fonction">Infirmier</h5>
+                <h3 class="nom"><?= htmlspecialchars($nom_utilisateur) . ' ' . htmlspecialchars($prenom_utilisateur) ?></h3>
+                <h5 class="fonction"><?= ucfirst($user_type) ?></h5>
             </div>
+        </div>
         </div>
     </nav>
 
     <main>
         <?php
         switch($_GET['page'] ?? 'rendez-vous'){
-            case 'rendez-vous': include("rendez-vous.php"); break;
+            case 'rendez-vous': include("rendez_vous.php"); break;
             case 'nouveaux-patients': include("nouveaux-patients.php"); break;
             case 'facturation': include("facturation.php"); break;
             case 'dossiers': include("dossiers.php"); break;
             case 'historique': include("historique.php"); break;
             case 'documents': include("documents.php"); break;
             case 'planning': include("planning.php"); break;
-            case 'params': include("parametres.php"); break;
+            case 'params': include("parametres_infirmier.php"); break;
         }
         ?>
     </main>

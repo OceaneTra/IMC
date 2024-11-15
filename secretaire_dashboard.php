@@ -38,6 +38,10 @@ $photo_utilisateur = $utilisateur['photo'] ?? 'default.jpg';
 
 
 
+
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -68,29 +72,8 @@ $photo_utilisateur = $utilisateur['photo'] ?? 'default.jpg';
             </li>
 
             <li class="items" style="align-items:center;">
-                <i class="fa-solid fa-user-plus"></i>
-                <a href="?page=nouveaux-patients">Nouveaux Patients</a>
-            </li>
-
-            <li class="items" style="align-items:center;">
-                <i class="fa-solid fa-file-invoice"></i>
-                <a href="?page=facturation">Facturation</a>
-            </li>
-
-            <li class="items" style="display:flex; flex-direction:column;">
-                <div class="title">
-                    <i class="fa-solid fa-folder-open"></i>
-                    <a href="?page=dossiers">Dossiers Patients</a>
-                </div>
-                <ul class="sub-items-containers">
-                    <li class="sub-items"><span><i class="fa-solid fa-clock-rotate-left"></i></span> <a href="?page=historique">Historique</a></li>
-                    <li class="sub-items"><span><i class="fa-solid fa-file-medical"></i></span><a href="?page=documents">Documents</a></li>
-                </ul>
-            </li>
-
-            <li class="items" style="align-items:center;">
-                <i class="fa-solid fa-calendar-days"></i>
-                <a href="?page=planning">Planning</a>
+                <i class="fa-solid fa-user"></i>
+                <a href="?page=patients">Liste des Patients</a>
             </li>
 
             <li class="items" style="align-items:center;">
@@ -120,26 +103,14 @@ $photo_utilisateur = $utilisateur['photo'] ?? 'default.jpg';
             case 'rendez-vous':
                 include("rendez-vous.php");
                 break;
-            case 'nouveaux-patients':
-                include("nouveaux-patients.php");
-                break;
-            case 'facturation':
-                include("facturation.php");
-                break;
-            case 'dossiers':
-                include("dossiers.php");
-                break;
-            case 'historique':
-                include("historique.php");
-                break;
-            case 'documents':
-                include("documents.php");
-                break;
-            case 'planning':
-                include("planning.php");
+            case 'patients':
+                include("patients.php");
                 break;
             case 'params':
-                include("parametres.php");
+                include("parametres_secretaire.php");
+                break;
+            default:
+                include("rendez-vous.php");
                 break;
         }
         ?>
