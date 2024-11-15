@@ -76,22 +76,25 @@ form .profil .submit-container {
     gap: 10px;
 }
 
-form .profil .submit-container input {
+form .profil .submit-container input, label {
     padding: 12px;
     border-radius: 5px;
     width: 160px;
     cursor: pointer;
-    font-weight: 800;
+    font-weight: 500;
 
 }
 
-form .profil .submit-container input:nth-of-type(1) {
+form .profil .submit-container label {
     color: #ffffff;
     background-color: #405ae7;
     border: 2px solid #eee;
+    border-radius: 8px;
+    text-align: center;
+    z-index: 99999;
 }
 
-form .profil .submit-container input:nth-of-type(1):hover {
+form .profil .submit-container label:hover {
     background: #2c3bb3;
     transition: background 0.3s;
 }

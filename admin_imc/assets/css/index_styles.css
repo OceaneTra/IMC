@@ -89,6 +89,18 @@ main{
     width: 100%;
 }
 
+.personal{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.personal img{
+    border-radius: 50%;
+    
+} 
+
 main header{
     padding: 30px;
     height: 80px;

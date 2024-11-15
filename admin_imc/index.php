@@ -1,3 +1,11 @@
+<?php
+session_start();
+include("C:/wamp64/www/Ivoire_Medical_Center/IMC/config/db_connect.php");
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Document</title>
-    <link rel="stylesheet" href="/Ivoire_Medical_Center/IMC/admin_imc/assets/css/index_style.css">
+    <link rel="stylesheet" href="/Ivoire_Medical_Center/IMC/admin_imc/assets/css/index_styles.css">
 </head>
 
 <body>
@@ -20,9 +28,7 @@
                     <h3 style="text-align:center;color:#405ae7; font-weight:bold;">Center</h3>
                 </div>
             </div>
-            <div class="subtitle">
-                <h5>afficher ici le type du personnel</h5>
-            </div>
+            <h5 style="color:#666; text-align:center;">Administrateur</h5>
         </div>
 
         <ul>
@@ -76,13 +82,12 @@
             </div>
 
             <div class="personal">
-                <h3>nom d'utilisateur</h3>
-                <img src="" alt="">
+                <img src="<?php echo $_SESSION['photo_profil']; ?> " alt="" width="45px" height="45px">
+                <h3><?php echo $_SESSION['nom_imc'] ?></h3>
             </div>
         </header>
 
         <div class="main-container">
-            <h2>Bienvenue, Gomez Axel</h2>
 
             <?php
 
