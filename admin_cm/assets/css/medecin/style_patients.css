@@ -1,9 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Nunito', sans-serif;
 }
+
 
 
 #list_patient {
@@ -89,28 +94,19 @@ table tbody td a:nth-of-type(2):hover {
 
 }
 
-:root {
-    --primary-color: #4A90E2;
-    --secondary-color: #67B8E3;
-    --accent-color: #FF6B6B;
-    --background-color: #F5F7FA;
-    --text-color: #2C3E50;
-    --border-radius: 12px;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
 
 
 #dossier_medical {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
     background: white;
     padding: 2rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
+    border-radius: #405ae7;
+    box-shadow: 1px 1px 7px #000;
     position: relative;
     overflow: hidden;
     display: none;
+    margin-top: 7px;
 
 }
 
@@ -121,9 +117,15 @@ table tbody td a:nth-of-type(2):hover {
     left: 0;
     width: 100%;
     height: 8px;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    background: #405ae7;
 }
 
+
+.infos_dm{
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2,1fr);
+}
 
 
 .close-btn {
@@ -136,7 +138,7 @@ table tbody td a:nth-of-type(2):hover {
 }
 
 h2 {
-    color: var(--primary-color);
+    color: #405ae7;
     margin-bottom: 2rem;
     font-size: 2rem;
     text-align: center;
@@ -145,8 +147,8 @@ h2 {
 
 .infos_patient {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
     margin-bottom: 2rem;
 }
 
@@ -157,7 +159,7 @@ h2 {
 label {
     display: block;
     margin-bottom: 0.5rem;
-    color: var(--text-color);
+    color: #405ae7;
     font-weight: 500;
 }
 
@@ -169,17 +171,18 @@ textarea {
     width: 100%;
     padding: 0.8rem;
     border: 2px solid #E1E8ED;
-    border-radius: var(--border-radius);
+    border-radius:#405ae7;
     background: #FFFFFF;
     transition: all 0.3s ease;
 }
+
 
 input[type="text"]:focus,
 input[type="datetime"]:focus,
 input[type="date"]:focus,
 select:focus,
 textarea:focus {
-    border-color: var(--primary-color);
+    border-color: #405ae7;
     outline: none;
     box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
 }
@@ -195,12 +198,12 @@ textarea:focus {
 }
 
 .sexe input[type="radio"] {
-    accent-color: var(--primary-color);
+    accent-color: #405ae7;
 }
 
 textarea {
     min-height: 120px;
-    resize: vertical;
+    resize: none;
 }
 
 .antecedents {
@@ -208,23 +211,23 @@ textarea {
     border-collapse: collapse;
     margin: 2rem 0;
     background: white;
-    border-radius: var(--border-radius);
+    border-radius: #405ae7;
     overflow: hidden;
 }
 
 .antecedents th {
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    background: #405ae7;
     color: white;
     padding: 1rem;
     text-align: left;
 }
 
 input[type="submit"] {
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    background: #405ae7;
     color: white;
     padding: 1rem 2rem;
     border: none;
-    border-radius: var(--border-radius);
+    border-radius: #405ae7;
     cursor: pointer;
     font-weight: 600;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -254,14 +257,8 @@ input[type="submit"]:hover {
 }
 
 .groupe_sanguin select {
-    background-image: linear-gradient(45deg, transparent 50%, var(--primary-color) 50%),
-        linear-gradient(135deg, var(--primary-color) 50%, transparent 50%);
-    background-position: calc(100% - 20px) calc(1em + 2px),
-        calc(100% - 15px) calc(1em + 2px);
-    background-size: 5px 5px,
-        5px 5px;
-    background-repeat: no-repeat;
-    padding-right: 3rem;
+    background-image: #405ae7;
+    
 }
 
 @media (max-width: 768px) {
