@@ -2,6 +2,9 @@
 session_start();
 include("C:/wamp64/www/Ivoire_Medical_Center/IMC/config/db_connect.php");
 
+if (!isset($_SESSION['id_imc'])) {
+    header("Location: connexion.php");
+}
 
 ?>
 
@@ -62,7 +65,7 @@ include("C:/wamp64/www/Ivoire_Medical_Center/IMC/config/db_connect.php");
             </li>
             <li>
                 <i class="fa-solid fa-power-off"></i>
-                <a href="#">Deconnexion</a>
+                <a href="connexion.php?op=deconnexion">Deconnexion</a>
             </li>
 
 

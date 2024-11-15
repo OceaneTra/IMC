@@ -1,13 +1,9 @@
 <?php
 
 session_start();
-
 include("C:/wamp64/www/Ivoire_Medical_Center/IMC/config/db_connect.php");
 
-
 //traitement connexion
-
-
 $error_message = '';
 if (isset($_POST['se_connecter'])) {
     $adresse_mail = $_POST['mail'];
@@ -25,20 +21,20 @@ if (isset($_POST['se_connecter'])) {
             header('Location: index.php');
             exit;
         }
-    } else {
-        $error_message = "Veuiller remplir tous les champs.";
     }
 }
 
-if (!empty($error_message)) {
-    $_SESSION["error_message"] = $error_message;
+if (isset($_GET['op']) && $_GET['op'] == 'deconnexion') {
+    session_unset();
+    session_destroy();
+
     header('Location: connexion.php');
-    exit;
+    exit();
 }
 
-
-
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -47,127 +43,47 @@ if (!empty($error_message)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/PageInscription.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Connexion</title>
-
-
-    <style>
-        * {
-            margin: 0px;
-        }
-
-        body {
-            width: 100%;
-            height: 100%;
-            margin: 0px;
-            background: linear-gradient(90deg, rgba(2, 0, 0, 0.6) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
-            display: flex;
-        }
-
-
-        a {
-            text-decoration: none;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            border-left: none;
-            width: 37.5em;
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            font-size: 15px;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.3);
-            border-radius: 7px;
-            margin: auto;
-            padding: 20px;
-            margin-top: 175px;
-        }
-
-        form .btn {
-            display: flex;
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            font-size: 15px;
-            justify-content: end;
-            padding-top: 50px;
-            padding-right: 50px;
-            gap: 20px;
-
-        }
-
-        input {
-            border-top: none;
-            border-right: none;
-            border-left: none;
-            background-color: aliceblue;
-            outline: none;
-            cursor: pointer;
-        }
-
-        input[type="submit"] {
-            border-bottom: none;
-            border: 2px solid black;
-            width: 325px;
-            height: 50px;
-            background-color: rgba(255, 255, 255);
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            font-size: 15px;
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            height: 20px;
-        }
-
-
-
-        form .Connexion {
-            display: flex;
-            flex-direction: column;
-            gap: 50px;
-            align-self: center;
-        }
-
-        form .Connexion .mail {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-
-        form .Connexion .mdp {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-
-        a {
-            color: black;
-        }
-    </style>
-
+    <link rel="stylesheet" href="/Ivoire_Medical_Center/IMC/admin_imc/assets/css/connexion_style.css">
 </head>
 
 <body>
     <form action="" method="post">
+        <div class="home">
+            <img src="/Ivoire_Medical_Center/IMC/admin_imc/assets/images/logo_imc_fblanc.png" width="80px" height="80px" alt="">
+            <div class="titles">
+                <div class="title">IVOIRE</div>
+                <span class="subtitle">Medical Center</span>
+            </div>
+        </div>
 
-        <div class="Connexion">
 
-            <h1>Se connecter</h1>
+        <div class="text">
+            <div>Connectez-vous <br> à votre plateforme</div>
+            <p>Saisissez votre mail et mot de passe pour vous connecter</p>
+        </div>
 
+
+        <div class="input-container">
             <div class="mail">
-                <label for="mail"> Adresse mail </label>
-                <input type="email" name="mail" id="mail" placeholder="johnsmith@mail.com">
+                <i class="fa-solid fa-circle-user"></i>
+                <input type="email" name="mail" id="mail" placeholder="tapez votre adresse mail ici">
             </div>
 
             <div class="mdp">
-                <label for="mdp"> Mot de passe </label>
-                <input type="password" name="mdp" id="mdp" placeholder="*********">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" name="mdp" id="mdp" placeholder="••••••••••••">
             </div>
-
-            <input type="submit" name="se_connecter" id="" value="Se connecter">
         </div>
+        <p><a href="mdp_oublie.php">Mot de passe <span>oublié ?</span></a></p>
+
+        <div class="cnx">
+            <input type="submit" name="se_connecter" value="Connexion   &gt;" >
+        </div>
+
+
+
     </form>
 
 
