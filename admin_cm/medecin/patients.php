@@ -23,6 +23,62 @@ if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'afficher
     $requete->execute([$_GET['id']]);
     $donnees = $requete->fetch();
 }
+
+// traitement de modification
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['modifier']) && isset($_GET['id'])) {
+    $id_patient = $_GET['id'];
+    if (isset($_POST['nom_patient']) && isset($_POST['prenom_patient']) && isset($_POST['date_naissance']) && isset($_POST['age']) && isset($_POST['sexe']) && isset($_POST['groupe_sanguin']) && isset($_POST['antecedents']) && isset($_POST['date_rdv']) && isset($_POST['type_consultation']) && isset($_POST['traitements']) && isset($_POST['note_medecin'])) {
+
+        $nom = $_POST['nom_patient'];
+        $prenom = $_POST['prenom_patient'];
+        $dateNaissance = $_POST['date_naissance'];
+        $age = $_POST['age'];
+        $sexe = $_POST['sexe'];
+        $groupe_sanguin = $_POST['groupe_sanguin'];
+        $antecedents = $_POST['antecedents'];
+
+        $date_rdv = $_POST['date_rdv'];
+        $type_consultation = $_POST['type_consultation'];
+        $note_medecin = $_POST['note_medecin'];
+        $traitements = $_POST['traitements'];
+
+        // Mise à jour des informations du patient
+        $tablePatient = $bdd->prepare("UPDATE patient SET 
+        nom_patient = ?, 
+        prenom_patient = ?, 
+        date_de_naissance = ?, 
+        age_patient = ?, 
+        sexe_patient = ?, 
+        groupe_sanguin = ? 
+        WHERE id_patient = ?");
+        $tablePatient->execute([$nom, $prenom, $dateNaissance, $age, $sexe, $groupe_sanguin, $id_patient]);
+
+        // Mise à jour du rendez-vous
+        $tableRdv = $bdd->prepare("UPDATE rdv SET 
+        date_rdv = ?, 
+        type_consultation = ? 
+        WHERE id_patient = ?");
+        $tableRdv->execute([$date_rdv, $type_consultation, $id_patient]);
+
+        // Mise à jour du dossier médical
+        $tableDm = $bdd->prepare("UPDATE dm SET 
+        antecedents = ?,
+        note_medecin = ?, 
+        traitements = ?
+        WHERE id_patient = ?");
+        $tableDm->execute([$antecedents, $note_medecin, $traitements, $id_patient]);
+
+        // Redirection après modification
+        header("Location: ?page=patient");
+        exit();
+    }
+}
+
+
+
+
+
+
 ?>
 
 
@@ -95,14 +151,14 @@ if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'afficher
                     <label for="num_dossier">Dossier N°:</label>
                     <input type="text" name="num_dossier" value="<?php if (isset($donnees['id_dm'])) {
                                                                         echo htmlspecialchars($donnees['id_dm']);
-                                                                    }  ?>">
+                                                                    }  ?>" disabled>
                 </div>
 
                 <div class="date_creation">
                     <label for="date_creation">Date de création </label>
                     <input type="datetime" name="date_creation" value="<?php if (isset($donnees['date_creation_dm'])) {
                                                                             echo htmlspecialchars($donnees['date_creation_dm']);
-                                                                        }  ?>">
+                                                                        }  ?>" disabled>
                 </div>
 
 
@@ -122,7 +178,7 @@ if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'afficher
                 </div>
 
                 <div class="prenom_patient">
-                    <label for="prenom_patient">Nom patient</label>
+                    <label for="prenom_patient">Prénom(s) patient</label>
                     <input type="text" name="prenom_patient" value="<?php if (isset($donnees['prenom_patient'])) {
                                                                         echo htmlspecialchars($donnees['prenom_patient']);
                                                                     }  ?>">
@@ -183,31 +239,27 @@ if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'afficher
             <table class="antecedents">
                 <thead>
                     <tr>
-                        <th>Date & Heure du rendez-vous</th>
-                        <th>Type de consultation</th>
-                        <th>Medecin traitant</th>
-                        <th>Traitement</th>
-                        <th>Notes supplémentaires du medecin</th>
+                        <th style="text-align:center;">Date & Heure du rendez-vous</th>
+                        <th style="text-align:center;">Type de consultation</th>
+                        <th style="text-align:center;">Medecin traitant</th>
+                        <th style="text-align:center;">Traitement</th>
+                        <th style="text-align:center;">Notes supplémentaires du medecin</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr style="text-align:center;">
-                        <td><?php if (isset($donnees['date_rdv']) && isset($donnees['heure_rdv'])) {
-                                echo $donnees["date_rdv"] . ' ' . $donnees["heure_rdv"];
-                            } ?></td>
-                        <td><?php if (isset($donnees['type_consultation'])) echo $donnees["type_consultation"]; ?></td>
-                        <td><?php if (isset($donnees['nom_medecin'])) echo $donnees["nom_medecin"] . ' ' . $donnees["prenom_medecin"]; ?></td>
-                        <td><?php if (isset($donnees['traitements'])) echo $donnees["traitements"]; ?></td>
-                        <td><?php if (isset($donnees['note_medecin'])) echo $donnees["note_medecin"]; ?></td>
-                    </tr>
+                    <td><input type="text" style="border: none; font-size:15px; text-align:center;" name="date_rdv" value="<?php if (isset($donnees['date_rdv'])) echo htmlspecialchars($donnees['date_rdv']); ?>"></td>
+                    <td><input type="text" style="border: none; font-size:15px; text-align:center;" name="type_consultation" value="<?php if (isset($donnees['type_consultation'])) echo htmlspecialchars($donnees['type_consultation']); ?>"></td>
+                    <td><input type="text" style="border: none; font-size:15px; text-align:center;" name="nom_medecin" value="<?php if (isset($donnees['nom_medecin'])) echo htmlspecialchars($donnees['nom_medecin']); ?>"></td>
+                    <td><input type="text" style="border: none; font-size:15px; text-align:center;" name="traitements" value="<?php if (isset($donnees['traitements'])) echo htmlspecialchars($donnees['traitements']); ?>"></td>
+                    <td><input type="text" style="border: none; font-size:15px; text-align:center;" name="note_medecin" value="<?php if (isset($donnees['note_medecin'])) echo htmlspecialchars($donnees['note_medecin']); ?>"></td>
                 </tbody>
 
 
             </table>
 
-            <input type="submit" name="enregistrer" value="Enregistrer">
 
+            <input type="submit" name="modifier" value="Enregistrer les modifications">
         </form>
     </div>
 
@@ -221,6 +273,7 @@ if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'afficher
         function closeModal() {
             document.getElementById('dossier_medical').style.display = "none";
         }
+
 
         // Si vous êtes sur la page avec action=afficher, ouvrir automatiquement le modal
         <?php if (isset($_GET['action']) && $_GET['action'] == 'afficher'): ?>

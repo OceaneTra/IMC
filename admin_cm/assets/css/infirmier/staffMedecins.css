@@ -88,3 +88,29 @@ table tbody td a:nth-of-type(2):hover {
     transition: background 0.3s;
 
 }
+
+.search {
+    width: 100%;
+    float: right;
+    display: flex;
+    padding: 30px;
+    align-items: center;
+    flex-direction: row-reverse;
+
+}
+
+.search i {
+    padding: 11px;
+    background: #405ae7;
+    color: #fff;
+    width: 40px;
+    text-align: center;
+}
+
+.search input {
+    padding: 10px;
+    border: none;
+    outline: none;
+    width: 250px;
+    background: #eee;
+}
