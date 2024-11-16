@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Document</title>
-    <link rel="stylesheet" href="/Ivoire_Medical_Center/IMC/admin_cm/assets/css/medecin/staffsMedecins.css">
+    <link rel="stylesheet" href="/Ivoire_Medical_Center/IMC/admin_cm/assets/css/medecin/staffMedecins.css">
 </head>
 
 
@@ -16,25 +16,22 @@
 
     <div class="search">
         <?php if (isset($_POST['rechercher']) && !empty($_POST['rechercher'])) {
-            $recherche = htmlspecialchars($_POST['rechercher']);
-            $sql = $bdd->prepare("SELECT * FROM medecin WHERE nom_medecin LIKE ? OR specialite LIKE ? ORDER BY nom_medecin ASC ");
-            $sql->execute(["%$recherche%"]);
-            $all_medecins = $sql->fetchAll(PDO::FETCH_ASSOC);
+            $recherche = $_POST["rechercher"];
+            $sql = $bdd->prepare("SELECT * FROM medecin WHERE nom_medecin LIKE ? OR specialite LIKE ? OR prenom_medecin LIKE ? ORDER BY nom_medecin ASC");
+            $sql->execute(["%$recherche%", "%$recherche%", "%$recherche%"]);
+            $all_medecins = $sql->fetchAll();
         } else {
-            $sql = $bdd->query("SELECT * FROM medecin ORDER BY nom_medecin ASC ");
-            $all_medecins = $sql->fetchAll(PDO::FETCH_ASSOC);
+            $sql = $bdd->prepare("SELECT * FROM medecin ORDER BY id_medecin ASC");
+            $sql->execute();
+            $all_medecins = $sql->fetchAll();
         }
-
-
-
-
         ?>
 
 
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" name="rechercher" placeholder="Rechercher un medecin...">
-        <input type="submit" value="Recherche">
-
+        <form action="" method="post">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" name="rechercher" placeholder="Rechercher un medecin">
+        </form>
 
     </div>
 
@@ -52,22 +49,26 @@
             </thead>
 
             <?php
-            $rq = $bdd->prepare("SELECT * FROM medecin");
-            $rq->execute();
-            $lignes = $rq->fetchAll();
-            if ($lignes) {
-                foreach ($lignes as $ligne) { ?>
-                    <tbody>
-                        <tr style="text-align:center;">
-                            <td><?php echo $ligne["id_medecin"]; ?></td>
-                            <td><?php echo $ligne["nom_medecin"] . " " . $ligne["prenom_medecin"]; ?></td>
-                            <td><?php echo $ligne["email_medecin"]; ?></td>
-                            <td><?php echo $ligne["specialite"]; ?></td>
-                            <td><?php echo $ligne["tel_medecin"]; ?></td>
-                        </tr>
-                    </tbody>
-            <?php }
-            } ?>
+            foreach ($all_medecins as $user_medecin) {
+            ?>
+                <tr>
+                    <td>
+                        <?php echo $user_medecin['id_medecin']; ?>
+                    </td>
+                    <td>
+                        <?php echo $user_medecin['nom_medecin'] . ' ' . $user_medecin['prenom_medecin']; ?>
+                    </td>
+                    <td>
+                        <?php echo $user_medecin['email_medecin']; ?>
+                    </td>
+                    <td>
+                        <?php echo $user_medecin['specialite']; ?>
+                    </td>
+                    <td>
+                        <?php echo $user_medecin['tel_medecin']; ?>
+                    </td>
+                </tr>
+            <?php } ?>
 
         </table>
     </section>
