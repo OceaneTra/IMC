@@ -8,10 +8,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Document</title>
-    <link rel="stylesheet" href="/Ivoire_Medical_Center/IMC/admin_cm/assets/css/medecin/staffMedecin.css">
+    <link rel="stylesheet" href="/Ivoire_Medical_Center/IMC/admin_cm/assets/css/medecin/staffsMedecins.css">
 </head>
 
+
 <body>
+
+    <div class="search">
+        <?php if (isset($_POST['rechercher']) && !empty($_POST['rechercher'])) {
+            $recherche = htmlspecialchars($_POST['rechercher']);
+            $sql = $bdd->prepare("SELECT * FROM medecin WHERE nom_medecin LIKE ? OR specialite LIKE ? ORDER BY nom_medecin ASC ");
+            $sql->execute(["%$recherche%"]);
+            $all_medecins = $sql->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            $sql = $bdd->query("SELECT * FROM medecin ORDER BY nom_medecin ASC ");
+            $all_medecins = $sql->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+
+
+
+        ?>
+
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" name="rechercher" placeholder="Rechercher un medecin...">
+        <input type="submit" value="Recherche">
+
+
+    </div>
 
     <section id="list_medecin">
         <h4>Liste des medecins</h4>

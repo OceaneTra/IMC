@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Nunito', sans-serif;
 }
 
 
@@ -25,7 +27,7 @@ table {
 }
 
 thead {
-    background-color: #f8f9fa;
+    background: #405ae7;
 }
 
 th,
@@ -34,11 +36,12 @@ td {
     border-bottom: 1px solid #eee;
     text-align: center;
 
+
 }
 
 th {
     font-weight: 600;
-    color: #666;
+    color: #fff;
 }
 
 td a {
@@ -87,4 +90,30 @@ table tbody td a:nth-of-type(2):hover {
     background: #eeee;
     transition: background 0.3s;
 
+}
+
+.search {
+    width: 100%;
+    float: right;
+    display: flex;
+    padding: 30px;
+    align-items: center;
+    flex-direction: row-reverse;
+
+}
+
+.search i {
+    padding: 11px;
+    background: #405ae7;
+    color: #fff;
+    width: 40px;
+    text-align: center;
+}
+
+.search input {
+    padding: 10px;
+    border: none;
+    outline: none;
+    width: 250px;
+    background: #eee;
 }
