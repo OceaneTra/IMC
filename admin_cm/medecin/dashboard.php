@@ -1,4 +1,23 @@
-<?php include("C:/wamp64/www/Ivoire_Medical_Center/IMC/config/db_connect.php"); ?>
+<?php include("C:/wamp64/www/Ivoire_Medical_Center/IMC/config/db_connect.php"); 
+
+
+
+// Traitement acceptation des rdv
+if(isset($_POST['accept'])){
+  
+}
+
+
+//Traitement refus des rdv
+// Traitement acceptation des rdv
+if(isset($_POST['reject'])){
+  
+}
+
+
+
+
+?>
 
 
 <!DOCTYPE html>
@@ -132,8 +151,8 @@
                 </div>
 
                 <div class="button-container">
-                    <button id="reject">Rejeter</button>
-                    <button id="accept">Accepter</button>
+                    <button type="submit" name="reject" id="reject" value="<?php echo $id_rdv; ?>">Rejeter</button>
+                    <button type="submit" name="accept" id="accept" value="<?php echo $id_rdv; ?>">Accepter</button>
                 </div>
             </div>
 

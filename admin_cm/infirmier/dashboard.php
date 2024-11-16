@@ -15,32 +15,52 @@
 <body>
     <div class="cards-container">
         <div class="card" style="background: #f4f0fe;">
+            <?php
+            $sql = $bdd->prepare("SELECT COUNT(*) FROM patient ");
+            $sql->execute();
+            $nb_patients = $sql->fetchColumn();
+            ?>
             <h3 class="title"><i class="fa-solid fa-user"></i> Patients</h3>
-            <h4 class="number">2,543</h4>
+            <h4 class="number"><?= $nb_patients; ?> </h4>
             <div class="sub">
                 <h5 class="rate">Last 7 days </h5> <span><i class="fa-solid fa-chart-line"></i>24%</span>
             </div>
         </div>
 
         <div class="card" style="background: #eef9fb;">
+            <?php
+            $sql = $bdd->prepare("SELECT COUNT(*) FROM rdv WHERE statut = 'en attente' ");
+            $sql->execute();
+            $rdv_waiting = $sql->fetchColumn();
+            ?>
             <h3 class="title"><i class="fa-solid fa-hourglass-start"></i>Rendez-vous en attente</h3>
-            <h4 class="number">453</h4>
+            <h4 class="number"><?= $rdv_waiting; ?></h4>
             <div class="sub">
                 <h5 class="rate">Last 7 days </h5> <span><i class="fa-solid fa-chart-line"></i>24%</span>
             </div>
         </div>
 
         <div class="card" style="background: #f3fdf4;">
+            <?php
+            $sql = $bdd->prepare("SELECT COUNT(*) FROM  rdv WHERE statut = 'accepté' ");
+            $sql->execute();
+            $rdv_accept = $sql->fetchColumn();
+            ?>
             <h3 class="title"><i class="fa-solid fa-calendar-check"></i>Rendez-vous acceptés</h3>
-            <h4 class="number">24</h4>
+            <h4 class="number"><?= $rdv_accept; ?></h4>
             <div class="sub">
                 <h5 class="rate">Last 7 days </h5> <span><i class="fa-solid fa-chart-line"></i>24%</span>
             </div>
         </div>
 
         <div class="card" style="background: #fff6ed;">
-            <h3 class="title"><i class="fa-solid fa-ban"></i>Rejetés</h3>
-            <h4 class="number">137</h4>
+            <?php
+            $sql = $bdd->prepare("SELECT COUNT(*) FROM  rdv WHERE statut = 'refusé' ");
+            $sql->execute();
+            $rdv_reject = $sql->fetchColumn();
+            ?>
+            <h3 class="title"><i class="fa-solid fa-ban"></i>Rendez-vous Rejetés</h3>
+            <h4 class="number"><?= $rdv_reject; ?></h4>
             <div class="sub">
                 <h5 class="rate">Last 7 days </h5> <span><i class="fa-solid fa-chart-line"></i>24%</span>
             </div>
@@ -99,7 +119,7 @@
 
             <div class="card-patient">
                 <div class="infos_pat">
-                    <img src="/Ivoire_Medical_Center/IMC/admin_cm/assets/images/pp1.avif" width="80px" height="80px"           alt="Profile">
+                    <img src="/Ivoire_Medical_Center/IMC/admin_cm/assets/images/pp1.avif" width="80px" height="80px" alt="Profile">
                     <div class="info_pat">
                         <h3 class="nom_pat">Mickl Smith</h3>
                         <h5 class="age_pat">45 years</h5>
@@ -117,7 +137,7 @@
                 </div>
             </div>
 
-    
+
 
         </div>
 
