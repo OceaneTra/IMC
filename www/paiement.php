@@ -89,8 +89,8 @@ if(isset($_POST['paie'])){
             <div class="payment-options">
                 <button class="active" onclick="selectPaymentMethod('card')"><div class="visa-mastercard"><img src="Images/visa.png" alt=""><img src="Images/mastercard.webp" alt=""></div><!--<i class="ri-visa-line" style="font-size: 50px;"></i><i class="ri-mastercard-fill" style="font-size: 50px;"></i>--></button>
                 <button onclick="selectPaymentMethod('paypal')"><img src="Images/paypal.png" style="width: 60px;" alt=""><!--<i class="ri-paypal-fill" style="font-size: 50px;"></i>--></button>
-                <button onclick="selectPaymentMethod('wave')"><img src="Images/wave.png" style="width: 120px;" alt=""><!--<i class="ri-paypal-fill" style="font-size: 50px;"></i>--></button>
-                <button onclick="selectPaymentMethod('orange')"><img src="Images/orange.png" style="width: 100px;" alt=""><!--<i class="ri-paypal-fill" style="font-size: 50px;"></i>--></button>
+                <button onclick="selectPaymentMethod('Wave')"><img src="Images/wave.png" style="width: 120px;" alt=""><!--<i class="ri-paypal-fill" style="font-size: 50px;"></i>--></button>
+                <button onclick="selectPaymentMethod('Orange Money')"><img src="Images/orange.png" style="width: 100px;" alt=""><!--<i class="ri-paypal-fill" style="font-size: 50px;"></i>--></button>
             </div>
 
             <form action=""  method="POST" class="payment-form">

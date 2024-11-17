@@ -27,7 +27,7 @@ function updateTotal(element) {
         else if (method === 'wave') {
             buttons[2].classList.add('active');
         }
-        else if (method === 'orange') {
+        else if (method === 'orange money') {
             buttons[3].classList.add('active');
         }
     }
