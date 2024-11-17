@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-include __DIR__ . '/www/config/db_connect.php'; 
+include __DIR__ . '/www/config/db_connect.php';
 
 // Vérifiez si l'utilisateur est connecté et est une secrétaire
 if (!isset($_SESSION['utilisateur_id']) || $_SESSION['utilisateur_type'] !== 'secretaire') {
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fileName = $_FILES['photo']['name'];
         $targetDirectory = "img/";
         $targetFile = $targetDirectory . basename($fileName);
-        
+
         if (move_uploaded_file($fileTmpPath, $targetFile)) {
             $photo = $targetFile;
         } else {
@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':photo' => $photo,
             ':id' => $user_id
         ];
-        
+
         if (!empty($nouveau_mdp_hash)) {
             $params[':nouveau_mdp'] = $nouveau_mdp_hash;
         }
@@ -99,6 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -119,11 +120,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-row">
                 <div class="form-group">
                     <label for="nom">Nom</label>
-                    <input type="text" name="nom" value="<?= htmlspecialchars($nom_utilisateur) ?>" required>
+                    <input type="text" name="nom" value="<?= htmlspecialchars($nom_utilisateur) ?>" >
                 </div>
                 <div class="form-group">
                     <label for="prenoms">Prénoms</label>
-                    <input type="text" name="prenoms" value="<?= htmlspecialchars($prenom_utilisateur) ?>" required>
+                    <input type="text" name="prenoms" value="<?= htmlspecialchars($prenom_utilisateur) ?>">
                 </div>
             </div>
 
@@ -133,9 +134,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="photo-preview">
                         <img src="<?php echo $photo_utilisateur ?>" alt="Profile photo">
                     </div>
-                    <input type="file" name="photo">
+                    <!-- Champ caché pour le téléchargement de la photo -->
+                    <input type="file" name="photo" id="photo" accept="image/*" style="display: none;" onchange="previewImage(event)">
+
+                    <!-- Bouton pour ouvrir l'explorateur de fichiers -->
+                    <div class="submit-group">
+                        <input type="button" class="change" value="Changer la photo" onclick="document.getElementById('photo').click();">
+                    </div>
                 </div>
             </div>
+
+            <script>
+                // Fonction pour prévisualiser l'image sélectionnée
+                function previewImage(event) {
+                    var reader = new FileReader();
+                    reader.onload = function() {
+                        var output = document.querySelector('.photo-preview img');
+                        output.src = reader.result;
+                    };
+                    reader.readAsDataURL(event.target.files[0]);
+                }
+            </script>
         </div>
 
         <div class="section">
@@ -143,11 +162,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-row">
                 <div class="form-group">
                     <label for="email">Adresse mail</label>
-                    <input type="email" name="email" value="<?= htmlspecialchars($email_utilisateur) ?>" required>
+                    <input type="email" name="email" value="<?= htmlspecialchars($email_utilisateur) ?>" >
                 </div>
                 <div class="form-group">
                     <label for="telephone">Numéro de téléphone</label>
-                    <input type="text" name="telephone" value="<?= htmlspecialchars($telephone_utilisateur) ?>" required>
+                    <input type="text" name="telephone" value="<?= htmlspecialchars($telephone_utilisateur) ?>" >
                 </div>
             </div>
         </div>
@@ -156,15 +175,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h2>Changer le mot de passe</h2>
             <div class="form-group">
                 <label for="mdp_actuel">Mot de passe actuel</label>
-                <input type="password" name="mdp_actuel" required>
+                <input type="password" name="mdp_actuel" >
             </div>
             <div class="form-group">
                 <label for="nouveau_mdp">Nouveau mot de passe</label>
-                <input type="password" name="nouveau_mdp" required>
+                <input type="password" name="nouveau_mdp" >
             </div>
             <div class="form-group">
                 <label for="confirmer_mdp">Confirmer le nouveau mot de passe</label>
-                <input type="password" name="confirmer_mdp" required>
+                <input type="password" name="confirmer_mdp" >
             </div>
         </div>
 
@@ -173,4 +192,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </form>
 </body>
+
 </html>

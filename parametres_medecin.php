@@ -2,23 +2,24 @@
 
 include __DIR__ . '/www/config/db_connect.php';
 
-// Vérifiez si l'utilisateur est connecté et est une secrétaire
-if (!isset($_SESSION['utilisateur_id']) || $_SESSION['utilisateur_type'] !== 'infirmier') {
+// Vérifiez si l'utilisateur est connecté et est un médecin
+if (!isset($_SESSION['utilisateur_id']) || $_SESSION['utilisateur_type'] !== 'medecin') {
     header("Location: PageConnexion.php");
     exit();
 }
 
 $user_id = $_SESSION['utilisateur_id'];
 
-// Récupération des données actuelles de la secrétaire
-$sql = "SELECT nom_infirmier as nom, prenom_infirmier as prenom, tel_infirmier as telephone, email_infirmier as email, photo, mot_de_passe 
-        FROM infirmier WHERE id_infirmier = :id";
+// Récupération des données actuelles du médecin
+$sql = "SELECT nom_medecin AS nom, prenom_medecin AS prenom, specialite, tel_medecin AS telephone, email_medecin AS email, photo, mot_de_passe 
+        FROM medecin WHERE id_medecin = :id";
 $stmt = $connexion->prepare($sql);
 $stmt->execute([':id' => $user_id]);
 $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $nom_utilisateur = $utilisateur['nom'] ?? '';
 $prenom_utilisateur = $utilisateur['prenom'] ?? '';
+$specialite_utilisateur = $utilisateur['specialite'] ?? '';
 $telephone_utilisateur = $utilisateur['telephone'] ?? '';
 $email_utilisateur = $utilisateur['email'] ?? '';
 $photo_utilisateur = $utilisateur['photo'] ?? 'default.jpg';
@@ -30,6 +31,7 @@ $message = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nom = htmlspecialchars($_POST['nom']);
     $prenom = htmlspecialchars($_POST['prenoms']);
+    $specialite = htmlspecialchars($_POST['specialite']);
     $telephone = htmlspecialchars($_POST['telephone']);
     $email = htmlspecialchars($_POST['email']);
     $mdp_actuel_form = htmlspecialchars($_POST['mdp_actuel']);
@@ -46,13 +48,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (move_uploaded_file($fileTmpPath, $targetFile)) {
             $photo = $targetFile;
         } else {
-            $photo = $photo_utilisateur;
+            $photo = $photo_utilisateur;  // Conserver la photo actuelle si le téléchargement échoue
         }
     } else {
         $photo = $photo_utilisateur;
     }
 
-    // Vérification et hachage du nouveau mot de passe
+    // Vérification et hachage du mot de passe
     if ($mdp_actuel_form && password_verify($mdp_actuel_form, $mdp_actuel)) {
         if ($nouveau_mdp === $confirmer_mdp) {
             $nouveau_mdp_hash = password_hash($nouveau_mdp, PASSWORD_DEFAULT);
@@ -63,22 +65,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "Mot de passe actuel incorrect.";
     }
 
+    // Mise à jour des informations dans la base de données
+    if (!$message) { // Exécute uniquement si aucun message d'erreur
+        $sql = "UPDATE medecin SET nom_medecin = :nom, prenom_medecin = :prenom, specialite = :specialite, tel_medecin = :telephone, 
+                email_medecin = :email, photo = :photo";
 
-    if (!$message) {
-        $sql = "UPDATE infirmier SET nom_infirmier = :nom, prenom_infirmier = :prenom, tel_infirmier = :telephone, 
-                email_infirmier = :email, photo = :photo";
-
-
+        // Ajouter le nouveau mot de passe si haché
         if (!empty($nouveau_mdp_hash)) {
             $sql .= ", mot_de_passe = :nouveau_mdp";
         }
 
-        $sql .= " WHERE id_infirmier = :id";
+        $sql .= " WHERE id_medecin = :id";
         $stmt = $connexion->prepare($sql);
 
         $params = [
             ':nom' => $nom,
             ':prenom' => $prenom,
+            ':specialite' => $specialite,
             ':telephone' => $telephone,
             ':email' => $email,
             ':photo' => $photo,
@@ -91,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt->execute($params);
         $_SESSION['message'] = "Profil et mot de passe mis à jour avec succès!";
-        header("Location: parametres_infirmier.php");
+        header("Location: parametres_medecin.php");  // Reste sur la même page après la mise à jour
         exit();
     }
 }
@@ -103,11 +106,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paramètres</title>
-    <link rel="stylesheet" href="css/parametres.css">
+    <title>Paramètres du médecin</title>
+    <link rel="stylesheet" href="css/parametres_medecin.css">
 </head>
 
 <body>
+
     <form method="post" enctype="multipart/form-data" class="container">
         <h1>Mon compte</h1>
 
@@ -120,11 +124,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-row">
                 <div class="form-group">
                     <label for="nom">Nom</label>
-                    <input type="text" name="nom" value="<?= htmlspecialchars($nom_utilisateur) ?>" >
+                    <input type="text" name="nom" value="<?= htmlspecialchars($nom_utilisateur) ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="prenoms">Prénoms</label>
-                    <input type="text" name="prenoms" value="<?= htmlspecialchars($prenom_utilisateur) ?>" >
+                    <input type="text" name="prenoms" value="<?= htmlspecialchars($prenom_utilisateur) ?>" required>
                 </div>
             </div>
 
@@ -132,8 +136,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label>Photo</label>
                 <div class="photo-section">
                     <div class="photo-preview">
-                        <img src="<?php echo $photo_utilisateur ?>" alt="Profile photo">
+                        <img src="<?= htmlspecialchars($photo_utilisateur) ?>" alt="Photo de profil">
                     </div>
+
                     <!-- Champ caché pour le téléchargement de la photo -->
                     <input type="file" name="photo" id="photo" accept="image/*" style="display: none;" onchange="previewImage(event)">
 
@@ -161,29 +166,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h2>Informations personnelles</h2>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="email">Adresse mail</label>
-                    <input type="email" name="email" value="<?= htmlspecialchars($email_utilisateur) ?>" >
+                    <label>Adresse mail</label>
+                    <input type="email" name="email" value="<?= htmlspecialchars($email_utilisateur) ?>">
                 </div>
                 <div class="form-group">
-                    <label for="telephone">Numéro de téléphone</label>
-                    <input type="text" name="telephone" value="<?= htmlspecialchars($telephone_utilisateur) ?>">
+                    <label>Numéro de téléphone</label>
+                    <input type="text" name="telephone" value="<?= htmlspecialchars($telephone_utilisateur) ?>" >
                 </div>
             </div>
-        </div>
 
-        <div class="section">
-            <h2>Changer le mot de passe</h2>
-            <div class="form-group">
-                <label for="mdp_actuel">Mot de passe actuel</label>
-                <input type="password" name="mdp_actuel" >
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Votre spécialité</label>
+                    <input type="text" name="specialite" value="<?= htmlspecialchars($specialite_utilisateur) ?>" >
+                </div>
+                <div class="form-group">
+                    <label>Mot de passe actuel</label>
+                    <input type="password" name="mdp_actuel" >
+                </div>
             </div>
-            <div class="form-group">
-                <label for="nouveau_mdp">Nouveau mot de passe</label>
-                <input type="password" name="nouveau_mdp" >
-            </div>
-            <div class="form-group">
-                <label for="confirmer_mdp">Confirmer le nouveau mot de passe</label>
-                <input type="password" name="confirmer_mdp" >
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label> Nouveau mot de passe</label>
+                    <input type="password" name="nouveau_mdp">
+                </div>
+                <div class="form-group">
+                    <label> Confirmer le mot de passe</label>
+                    <input type="password" name="confirmer_mdp">
+                </div>
             </div>
         </div>
 
@@ -191,6 +202,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="submit" name="sauvegarder" value="Sauvegarder les modifications">
         </div>
     </form>
+
 </body>
 
 </html>
