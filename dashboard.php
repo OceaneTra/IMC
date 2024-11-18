@@ -37,16 +37,102 @@ $photo_utilisateur = $utilisateur['photo'] ?? 'default.jpg';
 
 
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require './PHPMailer/src/Exception.php';
+require './PHPMailer/src/PHPMailer.php';
+require './PHPMailer/src/SMTP.php';
+
+function envoie_mail($from_name, $from_email, $to_email, $subject, $message){
+    $mail = new PHPMailer();
+    $mail->isSMTP();
+    $mail->SMTPDebug = 0;
+    $mail->SMTPSecure = 'ssl';
+    $mail->Host       = 'smtp.gmail.com';
+    $mail->SMTPAuth   = true;     
+    $mail->Username   = 'franckrouma2@gmail.com';  //SMTP username
+    $mail->Password   = 'gnqjmyftnajjowpe';  //SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;  //Enable implicit TLS encryption
+    $mail->Port       = 465;
+    $mail->setFrom($from_email, $from_name);
+    $mail->addAddress($to_email);
+    $mail->isHTML(true);                                 
+    $mail->Subject = $subject;
+    $mail->Body    = $message;
+    $mail->setLanguage('fr', '/optional/path/to/language/directory/');
+    if (!$mail->send()) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
+
 // Traitement des actions sur les rendez-vous
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['accept'])) {
         $id_rdv = $_POST['accept'];
         $stmt = $connexion->prepare("UPDATE rdv SET statut = 'accepté' WHERE id_rdv = :id");
         $stmt->execute([':id' => $id_rdv]);
+
+        // Récupération des informations du patient
+        $stmt_patient = $connexion->prepare("
+            SELECT p.adresse_patient, p.nom_patient, p.prenom_patient, r.date_rdv 
+            FROM rdv r
+            INNER JOIN patient p ON r.id_patient = p.id_patient
+            WHERE r.id_rdv = :id_rdv
+        ");
+        $stmt_patient->execute([':id_rdv' => $id_rdv]);
+        $patient_info = $stmt_patient->fetch(PDO::FETCH_ASSOC);
+
+        if ($patient_info) {
+            $to_email = $patient_info['adresse_patient'];
+            $patient_name = $patient_info['nom_patient'] . ' ' . $patient_info['prenom_patient'];
+            $date_rdv = $patient_info['date_rdv'];
+
+            // Contenu de l'email
+            $subject = "Rendez-vous accepté";
+            $message = "Bonjour $patient_name,<br><br>";
+            $message .= "Votre rendez-vous prévu pour le $date_rdv a été <strong>accepté</strong> par le médecin.<br><br>";
+            $message .= "Merci de respecter l'horaire prévu.<br><br>";
+            $message .= "Cordialement,<br>L'équipe médicale.";
+
+            // Envoi de l'email
+            envoie_mail('Ivoire Medical Center', 'franckrouma2@gmail.com', $to_email, $subject, $message);
+        }
     } elseif (isset($_POST['reject'])) {
         $id_rdv = $_POST['reject'];
         $stmt = $connexion->prepare("UPDATE rdv SET statut = 'refusé' WHERE id_rdv = :id");
         $stmt->execute([':id' => $id_rdv]);
+
+        // Récupération des informations du patient
+        $stmt_patient = $connexion->prepare("
+            SELECT p.adresse_patient, p.nom_patient, p.prenom_patient, r.date_rdv 
+            FROM rdv r
+            INNER JOIN patient p ON r.id_patient = p.id_patient
+            WHERE r.id_rdv = :id_rdv
+        ");
+        $stmt_patient->execute([':id_rdv' => $id_rdv]);
+        $patient_info = $stmt_patient->fetch(PDO::FETCH_ASSOC);
+
+        if ($patient_info) {
+            $to_email = $patient_info['email_patient'];
+            $patient_name = $patient_info['nom_patient'] . ' ' . $patient_info['prenom_patient'];
+            $date_rdv = $patient_info['date_rdv'];
+
+            // Contenu de l'email
+            $subject = "Rendez-vous refusé";
+            $message = "Bonjour $patient_name,<br><br>";
+            $message .= "Votre rendez-vous prévu pour le $date_rdv a été <strong>refusé</strong> par le médecin.<br><br>";
+            $message .= "Merci de prendre contact avec notre secrétariat pour toute autre demande.<br><br>";
+            $message .= "Cordialement,<br>L'équipe médicale.";
+
+            // Envoi de l'email
+            envoie_mail('Centre Médical', 'franckrouma2@gmail.com', $to_email, $subject, $message);
+        }
     }
 }
 
