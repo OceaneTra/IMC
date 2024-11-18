@@ -24,15 +24,65 @@ function updateTotal(element) {
         } else if (method === 'paypal') {
             buttons[1].classList.add('active');
         }
-        else if (method === 'wave') {
+        else if (method === 'Wave') {
             buttons[2].classList.add('active');
         }
-        else if (method === 'orange money') {
+        else if (method === 'Orange Money') {
             buttons[3].classList.add('active');
         }
+
+        if (method === 'Wave' || method === 'Orange Money') {
+            document.getElementById('phone-number-fields').style.display = 'block';
+            document.getElementById('carte-details').style.display = 'none';
+        } else {
+            document.getElementById('phone-number-fields').style.display = 'none';
+            document.getElementById('carte-details').style.display = 'block'
+        }
+
     }
 
-    function showPaymentModal(details) {
+    function validateForm() {
+        var selectedMethod = document.getElementById('methode_paiement').value;
+        var forfait = document.getElementById('forfait').value;
+        var montantTotal = document.getElementById('montant_total').value;
+        
+        // Vérifie que le forfait est sélectionné
+        if (!forfait || montantTotal == 0) {
+            alert("Veuillez choisir un forfait.");
+            return false;
+        }
+    
+        // Vérifie selon la méthode de paiement
+        if (selectedMethod === 'card' || selectedMethod === 'paypal') {
+            var nom = document.getElementsByName('nom')[0].value;
+            var adresse = document.getElementsByName('adresse')[0].value;
+            var numeroCarte = document.getElementsByName('numero_carte')[0].value;
+            var dateExpiration = document.getElementsByName('date')[0].value;
+            var cvv = document.getElementsByName('cvv')[0].value;
+    
+            if (!nom|| !numeroCarte || !dateExpiration || !cvv) {
+                alert("Veuillez remplir tous les champs requis pour Visa/Mastercard ou PayPal.");
+                return false;
+            }
+        } else if (selectedMethod === 'Wave' || selectedMethod === 'Orange Money') {
+            var telephone = document.getElementById('numero_tel').value;
+    
+            if (!telephone) {
+                alert("Veuillez entrer un numéro de téléphone pour Wave ou Orange Money.");
+                return false;
+            }
+        } else {
+            alert("Veuillez choisir une méthode de paiement.");
+            return false;
+        }
+    
+        return true;
+    }
+    
+    
+    
+
+   /* function showPaymentModal(details) {
         // Vérifie si tous les éléments sont présents
         if (!details) {
             console.error('Les détails du paiement sont manquants');
@@ -54,5 +104,5 @@ function updateTotal(element) {
     
     function closeModal() {
         document.getElementById('payment-modal').style.display = 'none';
-    }
+    }*/
     
