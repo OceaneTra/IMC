@@ -92,8 +92,6 @@ if (isset($_POST['supprimer'])) {
 <body>
 
 
-
-
     <h2 style="margin-left: 200px;" id="textp">Mon profil</h2>
     <p style="margin-left: 200px;">Gérez les paramètres de votre profil</p>
 

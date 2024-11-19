@@ -1,17 +1,18 @@
-<?php include("C:/wamp64/www/Ivoire_Medical_Center/IMC/config/db_connect.php"); 
+<?php include("C:/wamp64/www/Ivoire_Medical_Center/IMC/config/db_connect.php");
 
 
 
-// Traitement acceptation des rdv
-if(isset($_POST['accept'])){
-  
-}
+//Changement du statut du rdv
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $id_rdv = $_POST['id_rdv'];
+    $action = $_POST['action'];
 
+    $nouveau_statut = ($action === 'accepter') ? 'accepté' : 'refusé';
+    // Mettre à jour le statut
+    $stmt = $bdd->prepare("UPDATE rdv SET statut = ? WHERE id_rdv = ?");
+    $stmt->execute([$nouveau_statut, $id_rdv]);
 
-//Traitement refus des rdv
-// Traitement acceptation des rdv
-if(isset($_POST['reject'])){
-  
+    echo "Le statut du rendez-vous a été mis à jour.";
 }
 
 
@@ -136,26 +137,35 @@ if(isset($_POST['reject'])){
         <div>
             <h2>Liste des consultations</h2>
 
-            <div class="card-patient">
-                <div class="infos_pat">
-                    <img src="/Ivoire_Medical_Center/IMC/admin_cm/assets/images/pp1.avif" width="80px" height="80px" alt="Profile">
-                    <div class="info_pat">
-                        <h3 class="nom_pat">Mickl Smith</h3>
-                        <h5 class="age_pat">45 years</h5>
+            <?php
+            $sql = $bdd->prepare("SELECT r.id_rdv, r.date_rdv, r.heure_rdv, c.nom_patient, c.prenom_patient 
+            FROM rdv r 
+            JOIN consultation c ON r.id_patient = c.id_patient 
+            WHERE r.statut = 'en attente'");
+            $sql->execute();
+            $lignes = $sql->fetchAll();
+
+            foreach ($lignes as $ligne) { ?>
+                <div class="card-patient">
+                    <div class="infos_pat">
+                        <img src="/Ivoire_Medical_Center/IMC/admin_cm/assets/images/pp1.avif" width="80px" height="80px" alt="Profile">
+                        <div class="info_pat">
+                            <h3 class="nom_pat"><?php $ligne['nom_patient']; ?></h3>
+                            <h5 class="age_pat"><?php $ligne['age_patient']; ?> </h5>
+                        </div>
+                    </div>
+
+                    <div class="datetime">
+                        <div class="date"><i class="fa-solid fa-calendar-days"></i>10.12.2023</div>
+                        <div class="time"><i class="fa-solid fa-clock"></i>10:00 - 11.30</div>
+                    </div>
+
+                    <div class="button-container">
+                        <?php echo '<button type="submit" name="action" value="refuser">Rejeter</button> '; ?>
+                        <?php echo '<button type="submit" name="action" value="accepter">Accepter</button>'; ?>
                     </div>
                 </div>
-
-                <div class="datetime">
-                    <div class="date"><i class="fa-solid fa-calendar-days"></i>10.12.2023</div>
-                    <div class="time"><i class="fa-solid fa-clock"></i>10:00 - 11.30</div>
-                </div>
-
-                <div class="button-container">
-                    <button type="submit" name="reject" id="reject" value="<?php echo $id_rdv; ?>">Rejeter</button>
-                    <button type="submit" name="accept" id="accept" value="<?php echo $id_rdv; ?>">Accepter</button>
-                </div>
-            </div>
-
+            <?php } ?>
 
 
         </div>

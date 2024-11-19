@@ -30,7 +30,7 @@
     margin-bottom: 10px;
 }
 
-.top .alert p{
+.top .alert p {
     font-size: 0.95em;
     line-height: 1.6;
 }
@@ -76,7 +76,7 @@ form .profil .submit-container {
     gap: 10px;
 }
 
-form .profil .submit-container input, label {
+form .profil .submit-container input {
     padding: 12px;
     border-radius: 5px;
     width: 160px;
@@ -85,16 +85,13 @@ form .profil .submit-container input, label {
 
 }
 
-form .profil .submit-container label {
+form .profil .submit-container input:nth-of-type(1) {
     color: #ffffff;
-    background-color: #405ae7;
+    background-color: #5d92db;
     border: 2px solid #eee;
-    border-radius: 8px;
-    text-align: center;
-    z-index: 99999;
 }
 
-form .profil .submit-container label:hover {
+form .profil .submit-container input:nth-of-type(1):hover {
     background: #2c3bb3;
     transition: background 0.3s;
 }
